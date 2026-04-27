@@ -159,6 +159,19 @@
 
 <div class="divider" style="margin-top:40px"></div>
 
+<!-- VERFÜGBARKEIT -->
+<div class="sec">
+  <div class="sec-title">Verfügbarkeit</div>
+  <div class="sec-sub">Belegte Tage werden automatisch vom Airbnb-Kalender übernommen</div>
+  <div class="cal-status" id="calStatus">Kalender wird geladen…</div>
+  <div class="cal-wrap" id="calWrap"></div>
+  <div class="cal-legend">
+    <span><div class="dot" style="background:var(--light);border:1px solid var(--border)"></div> Frei</span>
+    <span><div class="dot" style="background:#e8472b"></div> Belegt</span>
+  </div>
+</div>
+<div class="divider"></div>
+
 <!-- WELCOME -->
 <div class="sec">
   <div class="sec-title">Hallo liebe Gäste!</div>
@@ -360,19 +373,6 @@
   </div>
 </div>
 
-<!-- VERFÜGBARKEIT -->
-<div class="sec">
-  <div class="sec-title">Verfügbarkeit</div>
-  <div class="sec-sub">Belegte Tage werden automatisch vom Airbnb-Kalender übernommen</div>
-  <div class="cal-status" id="calStatus">Kalender wird geladen…</div>
-  <div class="cal-wrap" id="calWrap"></div>
-  <div class="cal-legend">
-    <span><div class="dot" style="background:var(--light);border:1px solid var(--border)"></div> Frei</span>
-    <span><div class="dot" style="background:#e8472b"></div> Belegt</span>
-  </div>
-</div>
-<div class="divider"></div>
-
 <!-- NOTRUF -->
 <div class="sec" style="padding-top:0">
   <div class="emergency">
@@ -415,7 +415,7 @@ document.getElementById('lb').addEventListener('click',function(e){if(e.target==
 // Airbnb iCal Kalender
 (function(){
   var ICAL_URL='https://www.airbnb.de/calendar/ical/26757018.ics?t=df0c519f80e943fd8a8054737de37e8c';
-  var PROXY='https://api.allorigins.win/get?url='+encodeURIComponent(ICAL_URL);
+  var PROXY='https://corsproxy.io/?url='+encodeURIComponent(ICAL_URL);
 
   function parseIcal(text){
     var booked=[];
@@ -466,9 +466,9 @@ document.getElementById('lb').addEventListener('click',function(e){if(e.target==
   function pad(n){return n<10?'0'+n:n;}
 
   fetch(PROXY)
-    .then(function(r){return r.json();})
+    .then(function(r){return r.text();})
     .then(function(j){
-      var booked=parseIcal(j.contents);
+      var booked=parseIcal(typeof j==='string'?j:j.contents||j);
       var set={};
       booked.forEach(function(d){set[d]=true;});
       renderCal(set);
