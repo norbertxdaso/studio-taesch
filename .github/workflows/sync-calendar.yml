@@ -2,7 +2,7 @@ name: Sync Airbnb Calendar
 
 on:
   schedule:
-    - cron: '0 */6 * * *'   # alle 6 Stunden
+    - cron: '*/5 * * * *'   # alle 5 Minuten
   workflow_dispatch:          # manuell auslösbar
 
 jobs:
