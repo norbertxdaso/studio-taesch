@@ -109,6 +109,12 @@
     .cal-legend .dot{width:14px;height:14px;border-radius:4px}
     .cal-status{text-align:center;color:var(--gray);font-size:13px;margin-bottom:16px}
 
+
+    /* LANG SWITCHER */
+    .lang-switcher{display:flex;gap:6px;align-items:center}
+    .lang-btn{background:none;border:1px solid var(--border);border-radius:6px;padding:4px 8px;cursor:pointer;font-size:13px;font-weight:600;color:var(--gray);transition:all .2s}
+    .lang-btn.active{background:var(--dark);color:#fff;border-color:var(--dark)}
+    .lang-btn:hover:not(.active){background:var(--light)}
     footer{background:var(--dark);color:rgba(255,255,255,.55);text-align:center;padding:26px 20px;font-size:13px}
 
     @media(max-width:768px){
@@ -127,22 +133,30 @@
 
 <header>
   <div class="logo">Studio <span>Täsch</span></div>
-  <div class="header-sub">🏔 Wallis, Schweiz · Familie Bokel</div>
+  <div style="display:flex;align-items:center;gap:16px">
+    <div class="header-sub" data-i18n="nav-sub">🏔 Wallis, Schweiz · Familie Bokel</div>
+    <div class="lang-switcher">
+      <button class="lang-btn active" onclick="setLang('de')">🇩🇪 DE</button>
+      <button class="lang-btn" onclick="setLang('en')">🇬🇧 EN</button>
+      <button class="lang-btn" onclick="setLang('fr')">🇫🇷 FR</button>
+      <button class="lang-btn" onclick="setLang('es')">🇪🇸 ES</button>
+    </div>
+  </div>
 </header>
 
 <!-- HERO -->
 <div class="hero">
   <img class="hero-img" src="hero.jpg" alt="Ansicht Täsch">
   <div class="hero-overlay">
-    <h1>Willkommen in Täsch</h1>
-    <p>Direkt vor den Toren Zermatts — Blick auf das kleine Matterhorn</p>
+    <h1 data-i18n="hero-title">Willkommen in Täsch</h1>
+    <p data-i18n="hero-sub">Direkt vor den Toren Zermatts — Blick auf das kleine Matterhorn</p>
   </div>
 </div>
 
 <!-- GALERIE -->
 <div class="sec" style="padding-bottom:0">
-  <div class="sec-title">Das Studio</div>
-  <div class="sec-sub">Dein Zuhause auf Zeit in den Walliser Alpen</div>
+  <div class="sec-title" data-i18n="gallery-title">Das Studio</div>
+  <div class="sec-sub" data-i18n="gallery-sub">Dein Zuhause auf Zeit in den Walliser Alpen</div>
   <div class="gallery-grid">
     <img class="g-main" src="https://a0.muscache.com/im/pictures/b784298f-4533-4c75-abf8-9175221ef08c.jpg" alt="Studio" onclick="openLB(0)">
     <img src="studio1.jpg" alt="Studio" onclick="openLB(1)">
@@ -164,8 +178,8 @@
 
 <!-- VERFÜGBARKEIT + BUCHUNG -->
 <div class="sec">
-  <div class="sec-title">Verfügbarkeit & Buchen</div>
-  <div class="sec-sub">Wähle deine Anreise und Abreise direkt im Kalender</div>
+  <div class="sec-title" data-i18n="avail-title">Verfügbarkeit &amp; Buchen</div>
+  <div class="sec-sub" data-i18n="avail-sub">Wähle deine Anreise und Abreise direkt im Kalender</div>
   <div class="cal-status" id="calStatus">Kalender wird geladen…</div>
   <div class="cal-wrap" id="calWrap"></div>
   <div class="cal-legend">
@@ -178,36 +192,36 @@
   <div id="bookingBox" style="display:none;margin-top:36px;background:#fff;border:1px solid var(--border);border-radius:16px;padding:0;max-width:540px;margin-left:auto;margin-right:auto;box-shadow:0 4px 20px rgba(0,0,0,.08);overflow:hidden">
     <!-- Header -->
     <div style="background:linear-gradient(135deg,#0f2e4c,#1e5c8a);padding:22px 28px">
-      <div style="color:#fff;font-size:17px;font-weight:700">Buchungsanfrage</div>
+      <div style="color:#fff;font-size:17px;font-weight:700" data-i18n="book-title">Buchungsanfrage</div>
       <div id="bookingSummary" style="color:rgba(255,255,255,.8);font-size:13px;margin-top:4px"></div>
     </div>
     <!-- Body -->
     <div style="padding:24px 28px;display:flex;flex-direction:column;gap:14px">
       <div>
         <label style="font-size:12px;font-weight:600;color:var(--gray);text-transform:uppercase;letter-spacing:.5px">Name</label>
-        <input id="bkName" type="text" placeholder="Vor- und Nachname" style="margin-top:5px;padding:11px 13px;border-radius:8px;border:1px solid var(--border);font-size:15px;width:100%;display:block">
+        <input id="bkName" type="text" placeholder="" data-i18n-ph="book-name" style="margin-top:5px;padding:11px 13px;border-radius:8px;border:1px solid var(--border);font-size:15px;width:100%;display:block">
       </div>
       <div>
         <label style="font-size:12px;font-weight:600;color:var(--gray);text-transform:uppercase;letter-spacing:.5px">E-Mail</label>
-        <input id="bkEmail" type="email" placeholder="ihre@email.de" style="margin-top:5px;padding:11px 13px;border-radius:8px;border:1px solid var(--border);font-size:15px;width:100%;display:block">
+        <input id="bkEmail" type="email" placeholder="" data-i18n-ph="book-email" style="margin-top:5px;padding:11px 13px;border-radius:8px;border:1px solid var(--border);font-size:15px;width:100%;display:block">
       </div>
       <div>
         <label style="font-size:12px;font-weight:600;color:var(--gray);text-transform:uppercase;letter-spacing:.5px">Personen (max. 2)</label>
         <select id="bkGuests" style="margin-top:5px;padding:11px 13px;border-radius:8px;border:1px solid var(--border);font-size:15px;width:100%;display:block;background:#fff;appearance:none;cursor:pointer">
-          <option value="">Bitte wählen</option>
-          <option value="1">1 Person</option>
-          <option value="2">2 Personen</option>
+          <option value="" data-i18n="book-guests-ph">Bitte wählen</option>
+          <option value="1" data-i18n="book-p1">1 Person</option>
+          <option value="2" data-i18n="book-p2">2 Personen</option>
         </select>
       </div>
       <div>
         <label style="font-size:12px;font-weight:600;color:var(--gray);text-transform:uppercase;letter-spacing:.5px">Anmerkungen (optional)</label>
-        <textarea id="bkMsg" placeholder="Besondere Wünsche, Anreisezeit…" rows="3" style="margin-top:5px;padding:11px 13px;border-radius:8px;border:1px solid var(--border);font-size:15px;width:100%;display:block;resize:vertical"></textarea>
+        <textarea id="bkMsg" placeholder="" data-i18n-ph="book-msg" rows="3" style="margin-top:5px;padding:11px 13px;border-radius:8px;border:1px solid var(--border);font-size:15px;width:100%;display:block;resize:vertical"></textarea>
       </div>
     </div>
     <!-- Footer -->
     <div style="padding:16px 28px 22px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;border-top:1px solid var(--border)">
-      <button onclick="resetSelection()" style="padding:10px 18px;border-radius:8px;border:1px solid var(--border);background:#fff;font-size:14px;cursor:pointer;color:var(--gray)">Zurücksetzen</button>
-      <button onclick="submitBooking()" style="flex:1;padding:12px 24px;border-radius:8px;border:none;background:#0070ba;color:#fff;font-size:15px;font-weight:600;cursor:pointer">💳 Jetzt buchen &amp; per PayPal zahlen</button>
+      <button onclick="resetSelection()" style="padding:10px 18px;border-radius:8px;border:1px solid var(--border);background:#fff;font-size:14px;cursor:pointer;color:var(--gray)" data-i18n="book-reset">Zurücksetzen</button>
+      <button onclick="submitBooking()" style="flex:1;padding:12px 24px;border-radius:8px;border:none;background:#0070ba;color:#fff;font-size:15px;font-weight:600;cursor:pointer" data-i18n="book-cta">💳 Jetzt buchen &amp; per PayPal zahlen</button>
     </div>
     <p style="text-align:center;font-size:11px;color:var(--gray);padding:0 28px 16px">100 CHF / Nacht · 60 CHF Reinigung · Mindestens 4 Nächte · Zahlung sicher über PayPal</p>
   </div>
@@ -216,8 +230,8 @@
 
 <!-- WELCOME -->
 <div class="sec">
-  <div class="sec-title">Hallo liebe Gäste!</div>
-  <div class="sec-sub">Wir freuen uns, euch in unserem Studio begrüßen zu dürfen</div>
+  <div class="sec-title" data-i18n="welcome-title">Hallo liebe Gäste!</div>
+  <div class="sec-sub" data-i18n="welcome-sub">Wir freuen uns, euch in unserem Studio begrüßen zu dürfen</div>
   <div class="welcome-box">
     <h2>Herzlich Willkommen im Studio Bokel</h2>
     <p>Ihr findet unser Studio im <strong>Haus Miranda</strong> — wenn ihr am Haus ankommt (Haustür ist offen), geht ihr die ersten paar Stufen hinauf. Unser Studio befindet sich im <strong>linken Gang ganz hinten auf der rechten Seite</strong> (Studio Bokel).</p>
@@ -233,7 +247,7 @@
 
 <!-- REGELN -->
 <div class="sec">
-  <div class="sec-title">Hausregeln &amp; Check-out</div>
+  <div class="sec-title" data-i18n="rules-title">Hausregeln &amp; Check-out</div>
   <div class="sec-sub">House Rules &amp; Check-out</div>
 
   <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px">
@@ -278,8 +292,8 @@
 
 <!-- AUSSTATTUNG -->
 <div class="sec">
-  <div class="sec-title">Ausstattung & Hinweise</div>
-  <div class="sec-sub">Alles was ihr für euren Aufenthalt wissen müsst</div>
+  <div class="sec-title" data-i18n="info-title">Ausstattung &amp; Hinweise</div>
+  <div class="sec-sub" data-i18n="info-sub">Alles was ihr für euren Aufenthalt wissen müsst</div>
   <div class="cards">
     <div class="card">
       <div class="card-icon">🛏</div>
@@ -343,8 +357,8 @@
 
 <!-- ANREISE & LOKALES -->
 <div class="sec">
-  <div class="sec-title">Anreise & Lokale Tipps</div>
-  <div class="sec-sub">So kommt ihr nach Zermatt und findet alles was ihr braucht</div>
+  <div class="sec-title" data-i18n="travel-title">Anreise &amp; Lokale Tipps</div>
+  <div class="sec-sub" data-i18n="travel-sub">So kommt ihr nach Zermatt und findet alles was ihr braucht</div>
   <div class="cards">
     <div class="card">
       <div class="card-icon">🚗</div>
@@ -377,8 +391,8 @@
 
 <!-- AKTIVITÄTEN -->
 <div class="sec">
-  <div class="sec-title">Aktivitäten in der Region</div>
-  <div class="sec-sub">Zermatt und das Matterhorn-Gebiet — für jeden Geschmack, jede Jahreszeit</div>
+  <div class="sec-title" data-i18n="act-title">Aktivitäten in der Region</div>
+  <div class="sec-sub" data-i18n="act-sub">Zermatt und das Matterhorn-Gebiet — für jeden Geschmack, jede Jahreszeit</div>
 
   <!-- Ganzjährig -->
   <div style="margin-bottom:10px"><span style="display:inline-block;background:#1e5c8a;color:#fff;font-size:12px;font-weight:700;padding:4px 12px;border-radius:20px;letter-spacing:.5px">🏔 GANZJÄHRIG</span></div>
@@ -502,8 +516,8 @@
 </div>
 
 <footer>
-  <p>Studio Täsch · Haus Miranda · Täsch, Wallis, Schweiz</p>
-  <p style="margin-top:6px">Herzliche Grüße — Familie Bokel · Viel Spaß beim Wandern und Skifahren! 🏔</p>
+  <p data-i18n="footer-1">Studio Täsch · Haus Miranda · Täsch, Wallis, Schweiz</p>
+  <p style="margin-top:6px" data-i18n="footer-2">Herzliche Grüße — Familie Bokel · Viel Spaß beim Wandern und Skifahren! 🏔</p>
 </footer>
 
 <script>
@@ -644,6 +658,157 @@ document.addEventListener('keydown',function(e){
   if(e.key==='Escape')closeLB();
   if(e.key==='ArrowLeft')lbPrev();
   if(e.key==='ArrowRight')lbNext();
+});
+
+
+// === i18n ===
+var TRANSLATIONS = {
+  de: {
+    "nav-sub": "🏔 Wallis, Schweiz · Familie Bokel",
+    "hero-title": "Willkommen in Täsch",
+    "hero-sub": "Direkt vor den Toren Zermatts — Blick auf das kleine Matterhorn",
+    "gallery-title": "Das Studio",
+    "gallery-sub": "Dein Zuhause auf Zeit in den Walliser Alpen",
+    "avail-title": "Verfügbarkeit & Buchen",
+    "avail-sub": "Wähle deine Anreise und Abreise direkt im Kalender",
+    "welcome-title": "Hallo liebe Gäste!",
+    "welcome-sub": "Wir freuen uns, euch in unserem Studio begrüßen zu dürfen",
+    "rules-title": "Hausregeln & Check-out",
+    "info-title": "Ausstattung & Hinweise",
+    "info-sub": "Alles was ihr für euren Aufenthalt wissen müsst",
+    "travel-title": "Anreise & Lokale Tipps",
+    "travel-sub": "So kommt ihr nach Zermatt und findet alles was ihr braucht",
+    "act-title": "Aktivitäten in der Region",
+    "act-sub": "Zermatt und das Matterhorn-Gebiet — für jeden Geschmack, jede Jahreszeit",
+    "book-title": "Buchungsanfrage",
+    "book-name": "Vor- und Nachname",
+    "book-email": "ihre@email.de",
+    "book-guests-ph": "Bitte wählen",
+    "book-p1": "1 Person",
+    "book-p2": "2 Personen",
+    "book-msg": "Besondere Wünsche, Anreisezeit…",
+    "book-reset": "Zurücksetzen",
+    "book-cta": "💳 Jetzt buchen & per PayPal zahlen",
+    "footer-1": "Studio Täsch · Haus Miranda · Täsch, Wallis, Schweiz",
+    "footer-2": "Herzliche Grüße — Familie Bokel · Viel Spaß beim Wandern und Skifahren! 🏔"
+  },
+  en: {
+    "nav-sub": "🏔 Valais, Switzerland · Bokel Family",
+    "hero-title": "Welcome to Täsch",
+    "hero-sub": "Right at the gateway to Zermatt — views of the Little Matterhorn",
+    "gallery-title": "The Studio",
+    "gallery-sub": "Your home away from home in the Swiss Alps",
+    "avail-title": "Availability & Booking",
+    "avail-sub": "Select your check-in and check-out dates directly in the calendar",
+    "welcome-title": "Hello dear guests!",
+    "welcome-sub": "We are delighted to welcome you to our studio",
+    "rules-title": "House Rules & Check-out",
+    "info-title": "Amenities & Information",
+    "info-sub": "Everything you need to know for your stay",
+    "travel-title": "Getting Here & Local Tips",
+    "travel-sub": "How to get to Zermatt and find everything you need",
+    "act-title": "Activities in the Region",
+    "act-sub": "Zermatt and the Matterhorn area — for every taste, every season",
+    "book-title": "Booking Request",
+    "book-name": "First and Last Name",
+    "book-email": "your@email.com",
+    "book-guests-ph": "Please select",
+    "book-p1": "1 Person",
+    "book-p2": "2 Persons",
+    "book-msg": "Special requests, arrival time…",
+    "book-reset": "Reset",
+    "book-cta": "💳 Book Now & Pay via PayPal",
+    "footer-1": "Studio Täsch · Haus Miranda · Täsch, Valais, Switzerland",
+    "footer-2": "Kind regards — Bokel Family · Enjoy your hikes and ski trips! 🏔"
+  },
+  fr: {
+    "nav-sub": "🏔 Valais, Suisse · Famille Bokel",
+    "hero-title": "Bienvenue à Täsch",
+    "hero-sub": "Aux portes de Zermatt — vue sur le Petit Cervin",
+    "gallery-title": "Le Studio",
+    "gallery-sub": "Votre chez-vous dans les Alpes valaisannes",
+    "avail-title": "Disponibilités & Réservation",
+    "avail-sub": "Sélectionnez vos dates d'arrivée et de départ dans le calendrier",
+    "welcome-title": "Bonjour chers hôtes !",
+    "welcome-sub": "Nous sommes ravis de vous accueillir dans notre studio",
+    "rules-title": "Règles de la maison & Départ",
+    "info-title": "Équipements & Informations",
+    "info-sub": "Tout ce que vous devez savoir pour votre séjour",
+    "travel-title": "Comment venir & Conseils locaux",
+    "travel-sub": "Comment rejoindre Zermatt et trouver tout ce dont vous avez besoin",
+    "act-title": "Activités dans la région",
+    "act-sub": "Zermatt et le massif du Cervin — pour tous les goûts, toutes les saisons",
+    "book-title": "Demande de réservation",
+    "book-name": "Prénom et Nom",
+    "book-email": "votre@email.fr",
+    "book-guests-ph": "Veuillez choisir",
+    "book-p1": "1 Personne",
+    "book-p2": "2 Personnes",
+    "book-msg": "Demandes spéciales, heure d'arrivée…",
+    "book-reset": "Réinitialiser",
+    "book-cta": "💳 Réserver maintenant via PayPal",
+    "footer-1": "Studio Täsch · Haus Miranda · Täsch, Valais, Suisse",
+    "footer-2": "Cordialement — Famille Bokel · Profitez bien de votre séjour ! 🏔"
+  },
+  es: {
+    "nav-sub": "🏔 Valais, Suiza · Familia Bokel",
+    "hero-title": "Bienvenidos a Täsch",
+    "hero-sub": "A las puertas de Zermatt — vistas al Pequeño Matterhorn",
+    "gallery-title": "El Estudio",
+    "gallery-sub": "Tu hogar temporal en los Alpes suizos",
+    "avail-title": "Disponibilidad & Reserva",
+    "avail-sub": "Selecciona tus fechas de llegada y salida directamente en el calendario",
+    "welcome-title": "¡Hola queridos huéspedes!",
+    "welcome-sub": "Nos alegra mucho daros la bienvenida a nuestro estudio",
+    "rules-title": "Normas de la casa & Salida",
+    "info-title": "Instalaciones & Información",
+    "info-sub": "Todo lo que necesitáis saber para vuestra estancia",
+    "travel-title": "Cómo llegar & Consejos locales",
+    "travel-sub": "Cómo llegar a Zermatt y encontrar todo lo que necesitáis",
+    "act-title": "Actividades en la región",
+    "act-sub": "Zermatt y el macizo del Matterhorn — para todos los gustos, todas las temporadas",
+    "book-title": "Solicitud de reserva",
+    "book-name": "Nombre y Apellidos",
+    "book-email": "tu@email.es",
+    "book-guests-ph": "Por favor elige",
+    "book-p1": "1 Persona",
+    "book-p2": "2 Personas",
+    "book-msg": "Peticiones especiales, hora de llegada…",
+    "book-reset": "Restablecer",
+    "book-cta": "💳 Reservar ahora y pagar por PayPal",
+    "footer-1": "Studio Täsch · Haus Miranda · Täsch, Valais, Suiza",
+    "footer-2": "Saludos cordiales — Familia Bokel · ¡Disfrutad de las rutas y el esquí! 🏔"
+  }
+};
+
+var currentLang = localStorage.getItem('lang') || 'de';
+
+function setLang(lang) {
+  currentLang = lang;
+  localStorage.setItem('lang', lang);
+  document.querySelectorAll('.lang-btn').forEach(function(btn) {
+    btn.classList.toggle('active', btn.getAttribute('onclick') === "setLang('" + lang + "')");
+  });
+  applyLang(lang);
+}
+
+function applyLang(lang) {
+  var t = TRANSLATIONS[lang] || TRANSLATIONS.de;
+  document.querySelectorAll('[data-i18n]').forEach(function(el) {
+    var key = el.getAttribute('data-i18n');
+    if (t[key] !== undefined) el.innerHTML = t[key];
+  });
+  document.querySelectorAll('[data-i18n-ph]').forEach(function(el) {
+    var key = el.getAttribute('data-i18n-ph');
+    if (t[key] !== undefined) el.placeholder = t[key];
+  });
+  document.documentElement.lang = lang;
+}
+
+// Apply on load
+applyLang(currentLang);
+document.querySelectorAll('.lang-btn').forEach(function(btn) {
+  btn.classList.toggle('active', btn.getAttribute('onclick') === "setLang('" + currentLang + "')");
 });
 
 window.revealContact2=function(){
