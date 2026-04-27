@@ -113,12 +113,7 @@
 
 <!-- HERO -->
 <div class="hero">
-  <img id="heroWinter" class="hero-img" src="hero.jpg" alt="Winteransicht Täsch">
-  <img id="heroSommer" class="hero-img hidden" src="balkon.jpg" alt="Sommeransicht Täsch">
-  <div class="hero-btns">
-    <button class="hero-btn active" id="btnWinter" onclick="showHero('winter')">❄️ Winter</button>
-    <button class="hero-btn inactive" id="btnSommer" onclick="showHero('sommer')">☀️ Sommer</button>
-  </div>
+  <img class="hero-img" src="hero.jpg" alt="Ansicht Täsch">
   <div class="hero-overlay">
     <h1>Willkommen in Täsch</h1>
     <p>Direkt vor den Toren Zermatts — Blick auf das kleine Matterhorn</p>
@@ -370,21 +365,6 @@
 </footer>
 
 <script>
-// Hero toggle
-function showHero(mode){
-  var w=document.getElementById('heroWinter');
-  var s=document.getElementById('heroSommer');
-  var bw=document.getElementById('btnWinter');
-  var bs=document.getElementById('btnSommer');
-  if(mode==='winter'){
-    w.classList.remove('hidden');s.classList.add('hidden');
-    bw.className='hero-btn active';bs.className='hero-btn inactive';
-  } else {
-    s.classList.remove('hidden');w.classList.add('hidden');
-    bs.className='hero-btn active';bw.className='hero-btn inactive';
-  }
-}
-
 // Lightbox
 var imgs=[
   'https://a0.muscache.com/im/pictures/b784298f-4533-4c75-abf8-9175221ef08c.jpg',
