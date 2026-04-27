@@ -3,7 +3,17 @@ name: Sync Airbnb Calendar
 on:
   schedule:
     - cron: '*/5 * * * *'   # alle 5 Minuten
-  workflow_dispatch:          # manuell auslösbar
+  workflow_dispatch:
+    inputs:
+      checkin:
+        description: 'Anreise (YYYY-MM-DD) — leer lassen für reinen Sync'
+        required: false
+      checkout:
+        description: 'Abreise (YYYY-MM-DD)'
+        required: false
+      name:
+        description: 'Gastname'
+        required: false
 
 jobs:
   sync:
@@ -45,4 +55,51 @@ jobs:
           git config user.email "norbert_bot@dasobot.cloud"
           git add availability.json
           git diff --cached --quiet || git commit -m "chore: sync Airbnb calendar [skip ci]"
+          git push
+
+  # Neues Workflow für Direktbuchung (wird per API-Dispatch aufgerufen)
+  add-direct-booking:
+    if: ${{ github.event_name == 'workflow_dispatch' && github.event.inputs.checkin != '' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Add booking to direct-bookings.ics
+        run: |
+          python3 - <<EOF
+          import re
+          from datetime import date, timedelta, datetime
+
+          checkin  = "${{ github.event.inputs.checkin }}"
+          checkout = "${{ github.event.inputs.checkout }}"
+          name     = "${{ github.event.inputs.name }}"
+
+          uid = datetime.utcnow().strftime('%Y%m%dT%H%M%S') + '@studiotaesch'
+          dtstart = checkin.replace('-','')
+          dtend   = checkout.replace('-','')
+          stamp   = datetime.utcnow().strftime('%Y%m%dT%H%M%SZ')
+
+          event = (
+              f"BEGIN:VEVENT\r\n"
+              f"UID:{uid}\r\n"
+              f"DTSTART;VALUE=DATE:{dtstart}\r\n"
+              f"DTEND;VALUE=DATE:{dtend}\r\n"
+              f"SUMMARY:Direktbuchung {name}\r\n"
+              f"DTSTAMP:{stamp}\r\n"
+              f"END:VEVENT\r\n"
+          )
+
+          with open('direct-bookings.ics', 'r') as f:
+              content = f.read()
+          content = content.replace('END:VCALENDAR', event + 'END:VCALENDAR')
+          with open('direct-bookings.ics', 'w') as f:
+              f.write(content)
+          print('Booking added:', checkin, '-', checkout, name)
+          EOF
+
+      - name: Commit
+        run: |
+          git config user.name "Norbert Bot"
+          git config user.email "norbert_bot@dasobot.cloud"
+          git add direct-bookings.ics
+          git commit -m "booking: ${{ github.event.inputs.checkin }} bis ${{ github.event.inputs.checkout }} (${{ github.event.inputs.name }})"
           git push
