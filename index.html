@@ -435,40 +435,20 @@ document.getElementById('lb').addEventListener('click',function(e){if(e.target==
 
 // Airbnb iCal Kalender
 (function(){
-  var ICAL_URL='https://www.airbnb.de/calendar/ical/26757018.ics?t=df0c519f80e943fd8a8054737de37e8c';
-  var PROXY='https://corsproxy.io/?url='+encodeURIComponent(ICAL_URL);
-
-  function parseIcal(text){
-    var booked=[];
-    var events=text.split('BEGIN:VEVENT');
-    for(var i=1;i<events.length;i++){
-      var e=events[i];
-      var ds=e.match(/DTSTART(?:;VALUE=DATE)?:(\d{8})/);
-      var de=e.match(/DTEND(?:;VALUE=DATE)?:(\d{8})/);
-      if(ds&&de){
-        var s=parseDate(ds[1]),end=parseDate(de[1]);
-        var d=new Date(s);
-        while(d<end){booked.push(fmt(d));d.setDate(d.getDate()+1);}
-      }
-    }
-    return booked;
-  }
-
-  function parseDate(s){return new Date(s.substr(0,4)+'-'+s.substr(4,2)+'-'+s.substr(6,2));}
   function fmt(d){return d.toISOString().substr(0,10);}
 
   var bookedSet={};
   var selectStart=null,selectEnd=null;
 
-  fetch(PROXY)
-    .then(function(r){return r.text();})
+  fetch('availability.json?v='+Date.now())
+    .then(function(r){return r.json();})
     .then(function(j){
-      var booked=parseIcal(typeof j==='string'?j:j.contents||j);
-      booked.forEach(function(d){bookedSet[d]=true;});
+      j.booked.forEach(function(d){bookedSet[d]=true;});
       renderCal();
     })
     .catch(function(){
-      document.getElementById('calStatus').textContent='Kalender konnte nicht geladen werden.';
+      document.getElementById('calStatus').textContent='Kalender wird beim nächsten Sync aktualisiert.';
+      renderCal();
     });
 
   function renderCal(){
