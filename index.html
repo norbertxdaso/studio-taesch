@@ -844,9 +844,11 @@ function applyLang(lang) {
 }
 
 // Apply on load
-applyLang(currentLang);
-document.querySelectorAll('.lang-btn').forEach(function(btn) {
-  btn.classList.toggle('active', btn.getAttribute('onclick') === "setLang('" + currentLang + "')");
+document.addEventListener('DOMContentLoaded', function() {
+  applyLang(currentLang);
+  document.querySelectorAll('.lang-btn').forEach(function(btn) {
+    btn.classList.toggle('active', btn.getAttribute('onclick') === "setLang('" + currentLang + "')");
+  });
 });
 
 window.revealContact2=function(){
