@@ -90,6 +90,22 @@
     .emg-item .num{font-size:20px;font-weight:700;color:#c62828}
     .emg-item .label{font-size:11px;color:var(--gray);margin-top:2px}
 
+    /* CALENDAR */
+    .cal-wrap{display:flex;gap:24px;flex-wrap:wrap;justify-content:center}
+    .cal-month{min-width:260px;flex:1;max-width:320px}
+    .cal-month-title{font-size:15px;font-weight:700;text-align:center;margin-bottom:10px;color:var(--dark)}
+    .cal-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px}
+    .cal-day-name{text-align:center;font-size:11px;font-weight:600;color:var(--gray);padding:4px 0}
+    .cal-day{text-align:center;font-size:13px;padding:6px 2px;border-radius:6px;cursor:default}
+    .cal-day.empty{background:none}
+    .cal-day.free{background:var(--light);color:var(--dark)}
+    .cal-day.booked{background:#e8472b;color:#fff;font-weight:600}
+    .cal-day.today{outline:2px solid var(--dark)}
+    .cal-legend{display:flex;gap:16px;justify-content:center;margin-top:18px;font-size:13px;color:var(--gray)}
+    .cal-legend span{display:flex;align-items:center;gap:6px}
+    .cal-legend .dot{width:14px;height:14px;border-radius:4px}
+    .cal-status{text-align:center;color:var(--gray);font-size:13px;margin-bottom:16px}
+
     footer{background:var(--dark);color:rgba(255,255,255,.55);text-align:center;padding:26px 20px;font-size:13px}
 
     @media(max-width:768px){
@@ -344,6 +360,19 @@
   </div>
 </div>
 
+<!-- VERFÜGBARKEIT -->
+<div class="sec">
+  <div class="sec-title">Verfügbarkeit</div>
+  <div class="sec-sub">Belegte Tage werden automatisch vom Airbnb-Kalender übernommen</div>
+  <div class="cal-status" id="calStatus">Kalender wird geladen…</div>
+  <div class="cal-wrap" id="calWrap"></div>
+  <div class="cal-legend">
+    <span><div class="dot" style="background:var(--light);border:1px solid var(--border)"></div> Frei</span>
+    <span><div class="dot" style="background:#e8472b"></div> Belegt</span>
+  </div>
+</div>
+<div class="divider"></div>
+
 <!-- NOTRUF -->
 <div class="sec" style="padding-top:0">
   <div class="emergency">
@@ -382,6 +411,72 @@ function closeLB(){document.getElementById('lb').classList.remove('active')}
 function lbPrev(){cur=(cur-1+imgs.length)%imgs.length;document.getElementById('lb-img').src=imgs[cur]}
 function lbNext(){cur=(cur+1)%imgs.length;document.getElementById('lb-img').src=imgs[cur]}
 document.getElementById('lb').addEventListener('click',function(e){if(e.target===this)closeLB()});
+
+// Airbnb iCal Kalender
+(function(){
+  var ICAL_URL='https://www.airbnb.de/calendar/ical/26757018.ics?t=df0c519f80e943fd8a8054737de37e8c';
+  var PROXY='https://api.allorigins.win/get?url='+encodeURIComponent(ICAL_URL);
+
+  function parseIcal(text){
+    var booked=[];
+    var events=text.split('BEGIN:VEVENT');
+    for(var i=1;i<events.length;i++){
+      var e=events[i];
+      var ds=e.match(/DTSTART(?:;VALUE=DATE)?:(\d{8})/);
+      var de=e.match(/DTEND(?:;VALUE=DATE)?:(\d{8})/);
+      if(ds&&de){
+        var s=parseDate(ds[1]),end=parseDate(de[1]);
+        var d=new Date(s);
+        while(d<end){booked.push(fmt(d));d.setDate(d.getDate()+1);}
+      }
+    }
+    return booked;
+  }
+
+  function parseDate(s){return new Date(s.substr(0,4)+'-'+s.substr(4,2)+'-'+s.substr(6,2));}
+  function fmt(d){return d.toISOString().substr(0,10);}
+
+  function renderCal(bookedSet){
+    var wrap=document.getElementById('calWrap');
+    var today=new Date();today.setHours(0,0,0,0);
+    var todayStr=fmt(today);
+    var days=['Mo','Di','Mi','Do','Fr','Sa','So'];
+    var months=['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
+    var html='';
+    for(var m=0;m<3;m++){
+      var d=new Date(today.getFullYear(),today.getMonth()+m,1);
+      html+='<div class="cal-month"><div class="cal-month-title">'+months[d.getMonth()]+' '+d.getFullYear()+'</div><div class="cal-grid">';
+      for(var n=0;n<7;n++)html+='<div class="cal-day-name">'+days[n]+'</div>';
+      var dow=(d.getDay()+6)%7;// Mon=0
+      for(var e=0;e<dow;e++)html+='<div class="cal-day empty"></div>';
+      var dim=new Date(d.getFullYear(),d.getMonth()+1,0).getDate();
+      for(var day=1;day<=dim;day++){
+        var ds=d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(day);
+        var cls='free';
+        if(bookedSet[ds])cls='booked';
+        if(ds===todayStr)cls+=' today';
+        html+='<div class="cal-day '+cls+'">'+day+'</div>';
+      }
+      html+='</div></div>';
+    }
+    wrap.innerHTML=html;
+    document.getElementById('calStatus').textContent='';
+  }
+
+  function pad(n){return n<10?'0'+n:n;}
+
+  fetch(PROXY)
+    .then(function(r){return r.json();})
+    .then(function(j){
+      var booked=parseIcal(j.contents);
+      var set={};
+      booked.forEach(function(d){set[d]=true;});
+      renderCal(set);
+    })
+    .catch(function(){
+      document.getElementById('calStatus').textContent='Kalender konnte nicht geladen werden.';
+    });
+})();
 document.addEventListener('keydown',function(e){
   if(e.key==='Escape')closeLB();
   if(e.key==='ArrowLeft')lbPrev();
