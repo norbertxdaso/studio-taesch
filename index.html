@@ -175,20 +175,41 @@
   </div>
 
   <!-- BUCHUNGSFORMULAR -->
-  <div id="bookingBox" style="display:none;margin-top:32px;background:var(--light);border-radius:16px;padding:28px 32px;max-width:520px;margin-left:auto;margin-right:auto">
-    <h3 style="font-size:18px;margin-bottom:4px">Anfrage senden</h3>
-    <p id="bookingSummary" style="color:var(--gray);font-size:14px;margin-bottom:20px"></p>
-    <div style="display:flex;flex-direction:column;gap:12px">
-      <input id="bkName" type="text" placeholder="Vor- und Nachname" style="padding:12px 14px;border-radius:8px;border:1px solid var(--border);font-size:15px;width:100%">
-      <input id="bkEmail" type="email" placeholder="E-Mail-Adresse" style="padding:12px 14px;border-radius:8px;border:1px solid var(--border);font-size:15px;width:100%">
-      <input id="bkGuests" type="number" min="1" max="4" placeholder="Anzahl Personen (max. 4)" style="padding:12px 14px;border-radius:8px;border:1px solid var(--border);font-size:15px;width:100%">
-      <textarea id="bkMsg" placeholder="Anmerkungen (optional)" rows="3" style="padding:12px 14px;border-radius:8px;border:1px solid var(--border);font-size:15px;width:100%;resize:vertical"></textarea>
+  <div id="bookingBox" style="display:none;margin-top:36px;background:#fff;border:1px solid var(--border);border-radius:16px;padding:0;max-width:540px;margin-left:auto;margin-right:auto;box-shadow:0 4px 20px rgba(0,0,0,.08);overflow:hidden">
+    <!-- Header -->
+    <div style="background:linear-gradient(135deg,#0f2e4c,#1e5c8a);padding:22px 28px">
+      <div style="color:#fff;font-size:17px;font-weight:700">Buchungsanfrage</div>
+      <div id="bookingSummary" style="color:rgba(255,255,255,.8);font-size:13px;margin-top:4px"></div>
     </div>
-    <div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap;align-items:center">
-      <button onclick="resetSelection()" style="padding:11px 20px;border-radius:8px;border:1px solid var(--border);background:#fff;font-size:14px;cursor:pointer">Auswahl zurücksetzen</button>
-      <button onclick="submitBooking()" style="padding:11px 24px;border-radius:8px;border:none;background:#0070ba;color:#fff;font-size:14px;font-weight:600;cursor:pointer">💳 Weiter zu PayPal</button>
+    <!-- Body -->
+    <div style="padding:24px 28px;display:flex;flex-direction:column;gap:14px">
+      <div>
+        <label style="font-size:12px;font-weight:600;color:var(--gray);text-transform:uppercase;letter-spacing:.5px">Name</label>
+        <input id="bkName" type="text" placeholder="Vor- und Nachname" style="margin-top:5px;padding:11px 13px;border-radius:8px;border:1px solid var(--border);font-size:15px;width:100%;display:block">
+      </div>
+      <div>
+        <label style="font-size:12px;font-weight:600;color:var(--gray);text-transform:uppercase;letter-spacing:.5px">E-Mail</label>
+        <input id="bkEmail" type="email" placeholder="ihre@email.de" style="margin-top:5px;padding:11px 13px;border-radius:8px;border:1px solid var(--border);font-size:15px;width:100%;display:block">
+      </div>
+      <div>
+        <label style="font-size:12px;font-weight:600;color:var(--gray);text-transform:uppercase;letter-spacing:.5px">Personen (max. 2)</label>
+        <select id="bkGuests" style="margin-top:5px;padding:11px 13px;border-radius:8px;border:1px solid var(--border);font-size:15px;width:100%;display:block;background:#fff;appearance:none;cursor:pointer">
+          <option value="">Bitte wählen</option>
+          <option value="1">1 Person</option>
+          <option value="2">2 Personen</option>
+        </select>
+      </div>
+      <div>
+        <label style="font-size:12px;font-weight:600;color:var(--gray);text-transform:uppercase;letter-spacing:.5px">Anmerkungen (optional)</label>
+        <textarea id="bkMsg" placeholder="Besondere Wünsche, Anreisezeit…" rows="3" style="margin-top:5px;padding:11px 13px;border-radius:8px;border:1px solid var(--border);font-size:15px;width:100%;display:block;resize:vertical"></textarea>
+      </div>
     </div>
-    <p style="font-size:12px;color:var(--gray);margin-top:12px">Preis: <strong>100 CHF / Nacht</strong> + <strong>60 CHF Reinigung</strong> pro Buchung · Mindestaufenthalt: <strong>4 Nächte</strong> · Zahlung sicher über PayPal</p>
+    <!-- Footer -->
+    <div style="padding:16px 28px 22px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;border-top:1px solid var(--border)">
+      <button onclick="resetSelection()" style="padding:10px 18px;border-radius:8px;border:1px solid var(--border);background:#fff;font-size:14px;cursor:pointer;color:var(--gray)">Zurücksetzen</button>
+      <button onclick="submitBooking()" style="flex:1;padding:12px 24px;border-radius:8px;border:none;background:#0070ba;color:#fff;font-size:15px;font-weight:600;cursor:pointer">💳 Jetzt buchen &amp; per PayPal zahlen</button>
+    </div>
+    <p style="text-align:center;font-size:11px;color:var(--gray);padding:0 28px 16px">100 CHF / Nacht · 60 CHF Reinigung · Mindestens 4 Nächte · Zahlung sicher über PayPal</p>
   </div>
 </div>
 <div class="divider"></div>
@@ -534,7 +555,8 @@ document.getElementById('lb').addEventListener('click',function(e){if(e.target==
     var name=document.getElementById('bkName').value.trim();
     var email=document.getElementById('bkEmail').value.trim();
     var guests=document.getElementById('bkGuests').value.trim();
-    if(!name||!email||!guests){alert('Bitte Name, E-Mail und Personenzahl angeben.');return;}
+    if(!name||!email||!guests){alert('Bitte alle Felder ausfüllen.');return;}
+    if(parseInt(guests)>2){alert('Maximale Personenzahl: 2');return;}
     var nights=Math.round((new Date(selectEnd)-new Date(selectStart))/(1000*60*60*24));
     var total=nights*100+60;
     // PayPal.me link with amount
