@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Studio Täsch – Gäste-Guide</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --primary: #e8472b;
+      --dark: #222;
+      --light-bg: #f7f7f7;
+      --white: #fff;
+      --gray: #717171;
+      --border: #e0e0e0;
+      --radius: 12px;
+    }
+
+    body {
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--dark);
+      background: var(--white);
+    }
+
+    /* HEADER */
+    header {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 18px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .logo {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: -0.5px;
+    }
+    .logo span { color: var(--dark); }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      height: 520px;
+      overflow: hidden;
+    }
+    .hero-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.55) 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 20px;
+    }
+    .hero-overlay h1 {
+      color: var(--white);
+      font-size: 48px;
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 12px;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    }
+    .hero-overlay p {
+      color: rgba(255,255,255,0.9);
+      font-size: 20px;
+      font-weight: 400;
+    }
+
+    /* SECTIONS */
+    section { padding: 60px 40px; max-width: 1200px; margin: 0 auto; }
+
+    .section-title {
+      font-size: 28px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+    .section-subtitle {
+      color: var(--gray);
+      font-size: 16px;
+      margin-bottom: 36px;
+    }
+
+    /* ACTIVITY GRID */
+    .activities-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    .activity-card {
+      border-radius: var(--radius);
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      background: var(--white);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: block;
+    }
+    .activity-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(0,0,0,0.14);
+    }
+    .activity-card-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+      background: #ddd;
+    }
+    .activity-card-img-placeholder {
+      width: 100%;
+      height: 200px;
+      background: linear-gradient(135deg, #e8f4f8, #b8d8e8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+    }
+    .activity-card-body {
+      padding: 18px 20px 20px;
+    }
+    .activity-category {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--primary);
+      margin-bottom: 6px;
+    }
+    .activity-card-body h3 {
+      font-size: 17px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .activity-card-body p {
+      font-size: 14px;
+      color: var(--gray);
+      line-height: 1.5;
+    }
+    .activity-link-hint {
+      font-size: 13px;
+      color: var(--primary);
+      font-weight: 500;
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* SKIPASS BANNER */
+    .skipass-banner {
+      background: linear-gradient(135deg, #1a3a5c 0%, #2d6a9f 100%);
+      border-radius: 16px;
+      padding: 48px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    .skipass-text h2 {
+      color: var(--white);
+      font-size: 30px;
+      margin-bottom: 10px;
+    }
+    .skipass-text p {
+      color: rgba(255,255,255,0.8);
+      font-size: 16px;
+      max-width: 500px;
+      line-height: 1.6;
+    }
+    .skipass-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      min-width: 220px;
+    }
+    .btn {
+      display: inline-block;
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      text-align: center;
+      transition: opacity 0.2s;
+    }
+    .btn:hover { opacity: 0.88; }
+    .btn-primary { background: var(--primary); color: var(--white); }
+    .btn-outline { background: rgba(255,255,255,0.15); color: var(--white); border: 2px solid rgba(255,255,255,0.5); }
+
+    /* INFO CARDS */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 20px;
+    }
+    .info-card {
+      background: var(--light-bg);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+    }
+    .info-card-icon { font-size: 32px; margin-bottom: 14px; }
+    .info-card h3 { font-size: 16px; font-weight: 600; margin-bottom: 8px; }
+    .info-card p { font-size: 14px; color: var(--gray); line-height: 1.6; }
+
+    /* DIVIDER */
+    .divider {
+      height: 1px;
+      background: var(--border);
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* FOOTER */
+    footer {
+      background: var(--dark);
+      color: rgba(255,255,255,0.6);
+      text-align: center;
+      padding: 28px 20px;
+      font-size: 14px;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 600px) {
+      header { padding: 16px 20px; }
+      .hero { height: 360px; }
+      .hero-overlay h1 { font-size: 32px; }
+      section { padding: 40px 20px; }
+      .skipass-banner { padding: 32px 24px; }
+      .skipass-text h2 { font-size: 22px; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Studio <span>Täsch</span></div>
+  <div style="color:var(--gray); font-size:14px;">🏔️ Wallis, Schweiz</div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div style="width:100%;height:100%;background:linear-gradient(135deg,#1a3a5c,#4a7fa5,#87c3d0);display:flex;align-items:center;justify-content:center;font-size:80px;">🏔️</div>
+  <div class="hero-overlay">
+    <h1>Willkommen in Täsch</h1>
+    <p>Direkt vor den Toren Zermatts — mit Blick auf das kleine Matterhorn</p>
+  </div>
+</div>
+
+<!-- INFOS -->
+<section>
+  <div class="section-title">Gut zu wissen</div>
+  <div class="section-subtitle">Alles Wichtige für deinen Aufenthalt</div>
+  <div class="info-grid">
+    <div class="info-card">
+      <div class="info-card-icon">🚗</div>
+      <h3>Anreise & Parken</h3>
+      <p>Parke dein Auto im Matterhorn Terminal Täsch. Von dort fährt die Zermatterbahn (ca. 12 Min.) direkt nach Zermatt — vollautomatisch und autofreie Zone.</p>
+    </div>
+    <div class="info-card">
+      <div class="info-card-icon">🚊</div>
+      <h3>Zermatt erreichen</h3>
+      <p>Der Matterhorn-Express fährt täglich alle 20 Minuten. Tickets am Automaten oder online. CHF 10.– Erwachsene einfach.</p>
+    </div>
+    <div class="info-card">
+      <div class="info-card-icon">🏪</div>
+      <h3>Einkaufen in Täsch</h3>
+      <p>Migros und kleine Läden direkt im Ort. In Zermatt gibt es COOP, Bäckereien und Spezialitätenläden. Supermärkte schließen früh — gut vorplanen!</p>
+    </div>
+    <div class="info-card">
+      <div class="info-card-icon">🌡️</div>
+      <h3>Wetter & Höhe</h3>
+      <p>Täsch liegt auf 1.449 m. Zermatt auf 1.620 m. Warme Kleidung auch im Sommer empfohlen. Das Gipfelniveau erreicht bis 3.883 m.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- AKTIVITÄTEN -->
+<section>
+  <div class="section-title">Aktivitäten in der Region</div>
+  <div class="section-subtitle">Das Beste aus Zermatt und dem Matterhorn-Gebiet</div>
+  <div class="activities-grid">
+
+    <a class="activity-card" href="https://www.gornergrat.ch" target="_blank" rel="noopener">
+      <div class="activity-card-img-placeholder">🚞</div>
+      <div class="activity-card-body">
+        <div class="activity-category">Bergbahn</div>
+        <h3>Gornergratbahn</h3>
+        <p>Europas höchste Freiluft-Zahnradbahn auf 3.089 m. Spektakulärer Blick auf Matterhorn, Monte Rosa und über 30 Viertausender.</p>
+        <div class="activity-link-hint">Tickets buchen →</div>
+      </div>
+    </a>
+
+    <a class="activity-card" href="https://www.matterhornparadise.ch" target="_blank" rel="noopener">
+      <div class="activity-card-img-placeholder">🏔️</div>
+      <div class="activity-card-body">
+        <div class="activity-category">Bergbahn</div>
+        <h3>Matterhorn Glacier Paradise</h3>
+        <p>Mit 3.883 m der höchste Bergbahnhof Europas. Ganzjähriges Skigebiet auf dem Gletscher mit atemberaubendem Panorama.</p>
+        <div class="activity-link-hint">Mehr erfahren →</div>
+      </div>
+    </a>
+
+    <a class="activity-card" href="https://www.zermatt.ch/wandern" target="_blank" rel="noopener">
+      <div class="activity-card-img-placeholder">🥾</div>
+      <div class="activity-card-body">
+        <div class="activity-category">Wandern</div>
+        <h3>Wanderwege Zermatt</h3>
+        <p>Über 400 km markierte Wanderwege für alle Schwierigkeitsgrade — vom gemütlichen Spaziergang bis zur alpinen Hochtour.</p>
+        <div class="activity-link-hint">Routen entdecken →</div>
+      </div>
+    </a>
+
+    <a class="activity-card" href="https://www.matterhornparadise.ch/de/sommer/klettern" target="_blank" rel="noopener">
+      <div class="activity-card-img-placeholder">🧗</div>
+      <div class="activity-card-body">
+        <div class="activity-category">Klettern & Bergsport</div>
+        <h3>Klettern & Bergsteigen</h3>
+        <p>Führungen und Kletterkurse für Einsteiger und Erfahrene. Das Matterhorn für ambitionierte Alpinisten mit Bergführer.</p>
+        <div class="activity-link-hint">Infos & Buchung →</div>
+      </div>
+    </a>
+
+    <a class="activity-card" href="https://www.zermatters.ch/aktivitaeten/mountainbike/" target="_blank" rel="noopener">
+      <div class="activity-card-img-placeholder">🚵</div>
+      <div class="activity-card-body">
+        <div class="activity-category">Biken</div>
+        <h3>Mountainbike Trails</h3>
+        <p>Flowige Trails und technische Singletrails durch alpine Landschaft. Bikeverleih und Shuttle-Service verfügbar.</p>
+        <div class="activity-link-hint">Trails ansehen →</div>
+      </div>
+    </a>
+
+    <a class="activity-card" href="https://www.zermatt.ch/matterhorn-museum" target="_blank" rel="noopener">
+      <div class="activity-card-img-placeholder">🏛️</div>
+      <div class="activity-card-body">
+        <div class="activity-category">Kultur</div>
+        <h3>Matterhorn Museum</h3>
+        <p>Tauche ein in die Geschichte des Zermatts und die Erstbesteigung des Matterhorns 1865. Faszinierendes Untertagmuseum.</p>
+        <div class="activity-link-hint">Museum besuchen →</div>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SKIPASS -->
+<section>
+  <div class="skipass-banner">
+    <div class="skipass-text">
+      <h2>⛷️ Skipass Zermatt</h2>
+      <p>Genieße 360 km Pistenspaß im Matterhorn Ski Paradise — eines der größten Skigebiete der Alpen. Mit Flex-Skipass die schönsten Tage frei wählen. Auch im Sommer auf dem Gletscher fahren.</p>
+    </div>
+    <div class="skipass-buttons">
+      <a class="btn btn-primary" href="https://www.matterhornparadise.ch/de/informationen/tickets-tarife/skipass" target="_blank" rel="noopener">
+        Skipass kaufen
+      </a>
+      <a class="btn btn-outline" href="https://www.gornergrat.ch/de/products/skipass" target="_blank" rel="noopener">
+        Gornergrat Tickets
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>Studio Täsch · Täsch, Wallis, Schweiz · Viel Spaß bei deinem Aufenthalt! 🏔️</p>
+</footer>
+
+</body>
+</html>
