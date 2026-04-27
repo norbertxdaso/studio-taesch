@@ -98,9 +98,12 @@
     .cal-day-name{text-align:center;font-size:11px;font-weight:600;color:var(--gray);padding:4px 0}
     .cal-day{text-align:center;font-size:13px;padding:6px 2px;border-radius:6px;cursor:default}
     .cal-day.empty{background:none}
-    .cal-day.free{background:var(--light);color:var(--dark)}
-    .cal-day.booked{background:#e8472b;color:#fff;font-weight:600}
+    .cal-day.free{background:var(--light);color:var(--dark);cursor:pointer}
+    .cal-day.free:hover{background:#ddd}
+    .cal-day.booked{background:#e8472b;color:#fff;font-weight:600;cursor:not-allowed}
     .cal-day.today{outline:2px solid var(--dark)}
+    .cal-day.selected{background:#1e5c8a!important;color:#fff!important;font-weight:600}
+    .cal-day.inrange{background:#c8dff0!important;color:var(--dark)!important}
     .cal-legend{display:flex;gap:16px;justify-content:center;margin-top:18px;font-size:13px;color:var(--gray)}
     .cal-legend span{display:flex;align-items:center;gap:6px}
     .cal-legend .dot{width:14px;height:14px;border-radius:4px}
@@ -159,15 +162,33 @@
 
 <div class="divider" style="margin-top:40px"></div>
 
-<!-- VERFÜGBARKEIT -->
+<!-- VERFÜGBARKEIT + BUCHUNG -->
 <div class="sec">
-  <div class="sec-title">Verfügbarkeit</div>
-  <div class="sec-sub">Belegte Tage werden automatisch vom Airbnb-Kalender übernommen</div>
+  <div class="sec-title">Verfügbarkeit & Buchen</div>
+  <div class="sec-sub">Wähle deine Anreise und Abreise direkt im Kalender</div>
   <div class="cal-status" id="calStatus">Kalender wird geladen…</div>
   <div class="cal-wrap" id="calWrap"></div>
   <div class="cal-legend">
     <span><div class="dot" style="background:var(--light);border:1px solid var(--border)"></div> Frei</span>
     <span><div class="dot" style="background:#e8472b"></div> Belegt</span>
+    <span><div class="dot" style="background:#1e5c8a"></div> Auswahl</span>
+  </div>
+
+  <!-- BUCHUNGSFORMULAR -->
+  <div id="bookingBox" style="display:none;margin-top:32px;background:var(--light);border-radius:16px;padding:28px 32px;max-width:520px;margin-left:auto;margin-right:auto">
+    <h3 style="font-size:18px;margin-bottom:4px">Anfrage senden</h3>
+    <p id="bookingSummary" style="color:var(--gray);font-size:14px;margin-bottom:20px"></p>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <input id="bkName" type="text" placeholder="Vor- und Nachname" style="padding:12px 14px;border-radius:8px;border:1px solid var(--border);font-size:15px;width:100%">
+      <input id="bkEmail" type="email" placeholder="E-Mail-Adresse" style="padding:12px 14px;border-radius:8px;border:1px solid var(--border);font-size:15px;width:100%">
+      <input id="bkGuests" type="number" min="1" max="4" placeholder="Anzahl Personen (max. 4)" style="padding:12px 14px;border-radius:8px;border:1px solid var(--border);font-size:15px;width:100%">
+      <textarea id="bkMsg" placeholder="Anmerkungen (optional)" rows="3" style="padding:12px 14px;border-radius:8px;border:1px solid var(--border);font-size:15px;width:100%;resize:vertical"></textarea>
+    </div>
+    <div style="margin-top:18px;display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+      <button onclick="resetSelection()" style="padding:11px 20px;border-radius:8px;border:1px solid var(--border);background:#fff;font-size:14px;cursor:pointer">Auswahl zurücksetzen</button>
+      <button onclick="submitBooking()" style="padding:11px 24px;border-radius:8px;border:none;background:#0070ba;color:#fff;font-size:14px;font-weight:600;cursor:pointer">💳 Weiter zu PayPal</button>
+    </div>
+    <p style="font-size:12px;color:var(--gray);margin-top:12px">Preis: <strong>90 € / Nacht</strong> · Zahlung sicher über PayPal · Keine Buchungsgebühren</p>
   </div>
 </div>
 <div class="divider"></div>
@@ -436,18 +457,32 @@ document.getElementById('lb').addEventListener('click',function(e){if(e.target==
   function parseDate(s){return new Date(s.substr(0,4)+'-'+s.substr(4,2)+'-'+s.substr(6,2));}
   function fmt(d){return d.toISOString().substr(0,10);}
 
-  function renderCal(bookedSet){
+  var bookedSet={};
+  var selectStart=null,selectEnd=null;
+
+  fetch(PROXY)
+    .then(function(r){return r.text();})
+    .then(function(j){
+      var booked=parseIcal(typeof j==='string'?j:j.contents||j);
+      booked.forEach(function(d){bookedSet[d]=true;});
+      renderCal();
+    })
+    .catch(function(){
+      document.getElementById('calStatus').textContent='Kalender konnte nicht geladen werden.';
+    });
+
+  function renderCal(){
     var wrap=document.getElementById('calWrap');
     var today=new Date();today.setHours(0,0,0,0);
     var todayStr=fmt(today);
     var days=['Mo','Di','Mi','Do','Fr','Sa','So'];
     var months=['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
     var html='';
-    for(var m=0;m<3;m++){
+    for(var m=0;m<6;m++){
       var d=new Date(today.getFullYear(),today.getMonth()+m,1);
       html+='<div class="cal-month"><div class="cal-month-title">'+months[d.getMonth()]+' '+d.getFullYear()+'</div><div class="cal-grid">';
       for(var n=0;n<7;n++)html+='<div class="cal-day-name">'+days[n]+'</div>';
-      var dow=(d.getDay()+6)%7;// Mon=0
+      var dow=(d.getDay()+6)%7;
       for(var e=0;e<dow;e++)html+='<div class="cal-day empty"></div>';
       var dim=new Date(d.getFullYear(),d.getMonth()+1,0).getDate();
       for(var day=1;day<=dim;day++){
@@ -455,7 +490,12 @@ document.getElementById('lb').addEventListener('click',function(e){if(e.target==
         var cls='free';
         if(bookedSet[ds])cls='booked';
         if(ds===todayStr)cls+=' today';
-        html+='<div class="cal-day '+cls+'">'+day+'</div>';
+        if(selectStart&&selectEnd){
+          if(ds===selectStart||ds===selectEnd)cls+=' selected';
+          else if(ds>selectStart&&ds<selectEnd)cls+=' inrange';
+        } else if(ds===selectStart)cls+=' selected';
+        var click=bookedSet[ds]?'':'onclick="calClick(\''+ds+'\')";';
+        html+='<div class="cal-day '+cls+'" '+click+'>'+day+'</div>';
       }
       html+='</div></div>';
     }
@@ -463,19 +503,64 @@ document.getElementById('lb').addEventListener('click',function(e){if(e.target==
     document.getElementById('calStatus').textContent='';
   }
 
-  function pad(n){return n<10?'0'+n:n;}
+  window.calClick=function(ds){
+    var today=new Date();today.setHours(0,0,0,0);
+    if(ds<fmt(today))return;
+    if(!selectStart||selectEnd){
+      selectStart=ds;selectEnd=null;
+    } else {
+      if(ds<=selectStart){selectStart=ds;selectEnd=null;}
+      else {
+        // check no booked in range
+        var blocked=false;
+        var d=new Date(selectStart);d.setDate(d.getDate()+1);
+        while(fmt(d)<ds){if(bookedSet[fmt(d)]){blocked=true;break;}d.setDate(d.getDate()+1);}
+        if(blocked){selectStart=ds;selectEnd=null;}
+        else{selectEnd=ds;}
+      }
+    }
+    renderCal();
+    updateBookingBox();
+  };
 
-  fetch(PROXY)
-    .then(function(r){return r.text();})
-    .then(function(j){
-      var booked=parseIcal(typeof j==='string'?j:j.contents||j);
-      var set={};
-      booked.forEach(function(d){set[d]=true;});
-      renderCal(set);
-    })
-    .catch(function(){
-      document.getElementById('calStatus').textContent='Kalender konnte nicht geladen werden.';
-    });
+  function updateBookingBox(){
+    var box=document.getElementById('bookingBox');
+    var sum=document.getElementById('bookingSummary');
+    if(selectStart&&selectEnd){
+      var s=new Date(selectStart),e=new Date(selectEnd);
+      var nights=Math.round((e-s)/(1000*60*60*24));
+      var total=nights*90;
+      sum.textContent='Anreise: '+fmtDE(s)+' · Abreise: '+fmtDE(e)+' · '+nights+' Nächte · '+total+' €';
+      box.style.display='block';
+    } else {
+      box.style.display='none';
+    }
+  }
+
+  function fmtDE(d){return d.getDate()+'.'+(d.getMonth()+1)+'.'+d.getFullYear();}
+
+  window.resetSelection=function(){
+    selectStart=null;selectEnd=null;
+    renderCal();
+    document.getElementById('bookingBox').style.display='none';
+  };
+
+  window.submitBooking=function(){
+    var name=document.getElementById('bkName').value.trim();
+    var email=document.getElementById('bkEmail').value.trim();
+    var guests=document.getElementById('bkGuests').value.trim();
+    if(!name||!email||!guests){alert('Bitte Name, E-Mail und Personenzahl angeben.');return;}
+    var nights=Math.round((new Date(selectEnd)-new Date(selectStart))/(1000*60*60*24));
+    var total=nights*90;
+    // PayPal.me link with amount
+    var paypalUrl='https://www.paypal.com/paypalme/bokeltaesch/'+total+'EUR';
+    // Also open mailto as backup
+    var subject=encodeURIComponent('Buchungsanfrage Studio Täsch: '+selectStart+' bis '+selectEnd);
+    var body=encodeURIComponent('Name: '+name+'\nE-Mail: '+email+'\nPersonen: '+guests+'\nAnreise: '+selectStart+'\nAbreise: '+selectEnd+'\nNächte: '+nights+'\nBetrag: '+total+' €\n\nNachricht: '+document.getElementById('bkMsg').value);
+    window.open('mailto:norbert_bot@dasobot.cloud?subject='+subject+'&body='+body);
+    setTimeout(function(){window.open(paypalUrl,'_blank');},500);
+  };
+
 })();
 document.addEventListener('keydown',function(e){
   if(e.key==='Escape')closeLB();
