@@ -436,6 +436,7 @@ document.getElementById('lb').addEventListener('click',function(e){if(e.target==
 // Airbnb iCal Kalender
 (function(){
   function fmt(d){return d.toISOString().substr(0,10);}
+  function pad(n){return n<10?'0'+n:n;}
 
   var bookedSet={};
   var selectStart=null,selectEnd=null;
