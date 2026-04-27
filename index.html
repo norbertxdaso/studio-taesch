@@ -9,6 +9,19 @@
     :root{--red:#e8472b;--dark:#222;--gray:#717171;--light:#f7f7f7;--border:#e0e0e0;--white:#fff;--r:12px}
     body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:var(--dark);background:var(--white)}
 
+
+    /* HERO SLIDER */
+    .hero-slider{position:relative;height:560px;overflow:hidden;cursor:ew-resize;user-select:none}
+    .hs-bg{position:absolute;inset:0}
+    .hs-bg img{width:100%;height:100%;object-fit:cover;display:block}
+    .hs-sommer{clip-path:inset(0 50% 0 0);transition:clip-path .05s}
+    .hs-divider{position:absolute;top:0;bottom:0;left:50%;width:3px;background:rgba(255,255,255,.9);transform:translateX(-50%);pointer-events:none;box-shadow:0 0 8px rgba(0,0,0,.3)}
+    .hs-handle{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:48px;height:48px;background:#fff;border-radius:50%;box-shadow:0 2px 12px rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:10}
+    .hs-handle-inner{display:flex;gap:4px;color:#555;font-size:18px;font-weight:700;line-height:1}
+    .hs-label{position:absolute;top:20px;background:rgba(0,0,0,.45);color:#fff;font-size:13px;font-weight:600;padding:5px 12px;border-radius:20px;pointer-events:none;z-index:10}
+    .hs-label-left{left:20px}
+    .hs-label-right{right:20px}
+
     /* HEADER */
     header{background:var(--white);border-bottom:1px solid var(--border);padding:16px 40px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 1px 8px rgba(0,0,0,.06)}
     .logo{font-size:20px;font-weight:700;color:var(--red)}.logo span{color:var(--dark)}
@@ -107,9 +120,28 @@
   <div class="header-sub">🏔 Wallis, Schweiz · Familie Bokel</div>
 </header>
 
-<!-- HERO -->
-<div class="hero">
-  <img src="hero.jpg" alt="Blick auf Täsch mit kleinem Matterhorn">
+<!-- HERO SLIDER -->
+<div class="hero-slider" id="heroSlider">
+  <!-- Winter (hintergrund) -->
+  <div class="hs-bg hs-winter">
+    <img src="hero.jpg" alt="Winteransicht Täsch">
+  </div>
+  <!-- Sommer (overlay, wird durch Regler beschnitten) -->
+  <div class="hs-bg hs-sommer" id="hsSommer">
+    <img src="balkon.jpg" alt="Sommeransicht Täsch">
+  </div>
+  <!-- Trennlinie -->
+  <div class="hs-divider" id="hsDivider"></div>
+  <!-- Regler-Handle -->
+  <div class="hs-handle" id="hsHandle">
+    <div class="hs-handle-inner">
+      <span>‹</span><span>›</span>
+    </div>
+  </div>
+  <!-- Labels -->
+  <div class="hs-label hs-label-left">❄️ Winter</div>
+  <div class="hs-label hs-label-right">☀️ Sommer</div>
+  <!-- Overlay Text -->
   <div class="hero-overlay">
     <h1>Willkommen in Täsch</h1>
     <p>Direkt vor den Toren Zermatts — mit Blick auf das kleine Matterhorn</p>
@@ -382,5 +414,30 @@ function lbNext(){cur=(cur+1)%imgs.length;document.getElementById('lb-img').src=
 document.getElementById('lb').addEventListener('click',function(e){if(e.target===this)closeLB()})
 document.addEventListener('keydown',function(e){if(e.key==='Escape')closeLB();if(e.key==='ArrowLeft')lbPrev();if(e.key==='ArrowRight')lbNext()})
 </script>
+
+<script>
+(function(){
+  var slider=document.getElementById('heroSlider');
+  var sommer=document.getElementById('hsSommer');
+  var divider=document.getElementById('hsDivider');
+  var handle=document.getElementById('hsHandle');
+  var dragging=false;
+  function setPos(x){
+    var rect=slider.getBoundingClientRect();
+    var pct=Math.max(5,Math.min(95,((x-rect.left)/rect.width)*100));
+    var right=100-pct;
+    sommer.style.clipPath='inset(0 '+right+'% 0 0)';
+    divider.style.left=pct+'%';
+    handle.style.left=pct+'%';
+  }
+  slider.addEventListener('mousedown',function(e){dragging=true;setPos(e.clientX)});
+  slider.addEventListener('touchstart',function(e){dragging=true;setPos(e.touches[0].clientX)},{passive:true});
+  window.addEventListener('mousemove',function(e){if(dragging)setPos(e.clientX)});
+  window.addEventListener('touchmove',function(e){if(dragging)setPos(e.touches[0].clientX)},{passive:true});
+  window.addEventListener('mouseup',function(){dragging=false});
+  window.addEventListener('touchend',function(){dragging=false});
+})();
+</script>
+
 </body>
 </html>
