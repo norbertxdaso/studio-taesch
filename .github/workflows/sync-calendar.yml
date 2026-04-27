@@ -1,0 +1,48 @@
+name: Sync Airbnb Calendar
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'   # alle 6 Stunden
+  workflow_dispatch:          # manuell auslösbar
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch iCal and generate availability.json
+        run: |
+          python3 - <<'EOF'
+          import urllib.request, json, re
+          from datetime import date, timedelta
+
+          url = "https://www.airbnb.de/calendar/ical/26757018.ics?t=df0c519f80e943fd8a8054737de37e8c"
+          with urllib.request.urlopen(url, timeout=15) as r:
+              ical = r.read().decode("utf-8", errors="ignore")
+
+          booked = set()
+          for event in ical.split("BEGIN:VEVENT")[1:]:
+              ds = re.search(r"DTSTART(?:;VALUE=DATE)?:(\d{8})", event)
+              de = re.search(r"DTEND(?:;VALUE=DATE)?:(\d{8})", event)
+              if ds and de:
+                  s = date(int(ds[1][:4]), int(ds[1][4:6]), int(ds[1][6:8]))
+                  e = date(int(de[1][:4]), int(de[1][4:6]), int(de[1][6:8]))
+                  d = s
+                  while d < e:
+                      booked.add(str(d))
+                      d += timedelta(days=1)
+
+          out = {"booked": sorted(booked), "updated": str(date.today())}
+          with open("availability.json", "w") as f:
+              json.dump(out, f)
+          print(f"Done: {len(booked)} booked days")
+          EOF
+
+      - name: Commit if changed
+        run: |
+          git config user.name "Norbert Bot"
+          git config user.email "norbert_bot@dasobot.cloud"
+          git add availability.json
+          git diff --cached --quiet || git commit -m "chore: sync Airbnb calendar [skip ci]"
+          git push
