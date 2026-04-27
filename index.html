@@ -9,107 +9,98 @@
     :root{--red:#e8472b;--dark:#222;--gray:#717171;--light:#f7f7f7;--border:#e0e0e0;--white:#fff;--r:12px}
     body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;color:var(--dark);background:var(--white)}
 
-
-    /* HERO SLIDER */
-    .hero-slider{position:relative;height:560px;overflow:hidden;cursor:ew-resize;user-select:none}
-    .hs-bg{position:absolute;inset:0}
-    .hs-bg img{width:100%;height:100%;object-fit:cover;display:block}
-    .hs-sommer{clip-path:inset(0 50% 0 0);transition:clip-path .05s}
-    .hs-divider{position:absolute;top:0;bottom:0;left:50%;width:3px;background:rgba(255,255,255,.9);transform:translateX(-50%);pointer-events:none;box-shadow:0 0 8px rgba(0,0,0,.3)}
-    .hs-handle{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:48px;height:48px;background:#fff;border-radius:50%;box-shadow:0 2px 12px rgba(0,0,0,.35);display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:10}
-    .hs-handle-inner{display:flex;gap:4px;color:#555;font-size:18px;font-weight:700;line-height:1}
-    .hs-label{position:absolute;top:20px;background:rgba(0,0,0,.45);color:#fff;font-size:13px;font-weight:600;padding:5px 12px;border-radius:20px;pointer-events:none;z-index:10}
-    .hs-label-left{left:20px}
-    .hs-label-right{right:20px}
-
     /* HEADER */
     header{background:var(--white);border-bottom:1px solid var(--border);padding:16px 40px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 1px 8px rgba(0,0,0,.06)}
     .logo{font-size:20px;font-weight:700;color:var(--red)}.logo span{color:var(--dark)}
     .header-sub{color:var(--gray);font-size:13px}
 
     /* HERO */
-    .hero{position:relative;height:560px;overflow:hidden}
-    .hero img{width:100%;height:100%;object-fit:cover;display:block}
-    .hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.08),rgba(0,0,0,.6));display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:48px 24px;text-align:center}
-    .hero-overlay h1{color:#fff;font-size:46px;font-weight:700;line-height:1.1;margin-bottom:10px;text-shadow:0 2px 10px rgba(0,0,0,.4)}
-    .hero-overlay p{color:rgba(255,255,255,.88);font-size:18px}
+    .hero{position:relative;height:420px;overflow:hidden}
+    .hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;display:block;transition:opacity .5s}
+    .hero-img.hidden{opacity:0;pointer-events:none}
+    .hero-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(0,0,0,.05),rgba(0,0,0,.55));display:flex;flex-direction:column;align-items:center;justify-content:flex-end;padding:36px 24px;text-align:center;pointer-events:none}
+    .hero-overlay h1{color:#fff;font-size:40px;font-weight:700;line-height:1.1;margin-bottom:8px;text-shadow:0 2px 10px rgba(0,0,0,.4)}
+    .hero-overlay p{color:rgba(255,255,255,.88);font-size:17px}
+    .hero-btns{position:absolute;top:16px;right:16px;display:flex;gap:8px;z-index:10}
+    .hero-btn{padding:8px 18px;border-radius:20px;border:none;cursor:pointer;font-size:13px;font-weight:600;transition:background .2s,color .2s}
+    .hero-btn.active{background:#fff;color:var(--dark)}
+    .hero-btn.inactive{background:rgba(255,255,255,.25);color:#fff}
 
     /* GALERIE */
-    .gallery-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:240px 240px;gap:6px;max-height:492px;overflow:hidden;border-radius:16px}
-    .gallery-grid .g-main{grid-column:1/3;grid-row:1/3}
+    .gallery-grid{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:220px 220px;gap:6px;border-radius:16px;overflow:hidden}
+    .gallery-grid .g-main{grid-row:1/3}
     .gallery-grid img{width:100%;height:100%;object-fit:cover;display:block;cursor:pointer;transition:opacity .2s}
     .gallery-grid img:hover{opacity:.88}
+    .gallery-more{position:relative;cursor:pointer}
+    .gallery-more::after{content:attr(data-more);position:absolute;inset:0;background:rgba(0,0,0,.45);color:#fff;font-size:16px;font-weight:600;display:flex;align-items:center;justify-content:center}
 
     /* LIGHTBOX */
-    #lb{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:1000;align-items:center;justify-content:center;flex-direction:column}
+    #lb{display:none;position:fixed;inset:0;background:rgba(0,0,0,.93);z-index:1000;align-items:center;justify-content:center}
     #lb.active{display:flex}
-    #lb img{max-width:92vw;max-height:85vh;object-fit:contain;border-radius:8px}
-    #lb-close{position:absolute;top:20px;right:28px;color:#fff;font-size:36px;cursor:pointer;background:none;border:none}
-    #lb-prev,#lb-next{position:absolute;top:50%;transform:translateY(-50%);color:#fff;font-size:36px;cursor:pointer;background:rgba(255,255,255,.1);border:none;padding:10px 16px;border-radius:6px}
-    #lb-prev{left:16px}#lb-next{right:16px}
+    #lb img{max-width:92vw;max-height:88vh;object-fit:contain;border-radius:6px}
+    #lb-close{position:absolute;top:18px;right:24px;color:#fff;font-size:32px;cursor:pointer;background:none;border:none}
+    #lb-prev,#lb-next{position:absolute;top:50%;transform:translateY(-50%);color:#fff;font-size:32px;cursor:pointer;background:rgba(255,255,255,.12);border:none;padding:10px 16px;border-radius:6px}
+    #lb-prev{left:12px}#lb-next{right:12px}
 
     /* SECTION */
-    .sec{padding:56px 40px;max-width:1100px;margin:0 auto}
-    .sec-title{font-size:26px;font-weight:700;margin-bottom:6px}
-    .sec-sub{color:var(--gray);font-size:15px;margin-bottom:32px}
+    .sec{padding:52px 40px;max-width:1100px;margin:0 auto}
+    .sec-title{font-size:25px;font-weight:700;margin-bottom:6px}
+    .sec-sub{color:var(--gray);font-size:15px;margin-bottom:30px}
     .divider{height:1px;background:var(--border);max-width:1100px;margin:0 auto}
 
     /* WELCOME */
-    .welcome-box{background:linear-gradient(135deg,#fff8f6,#fff);border:1px solid #f5c4bb;border-radius:16px;padding:36px 40px;font-size:16px;line-height:1.75;color:#333}
-    .welcome-box h2{font-size:22px;margin-bottom:16px;color:var(--dark)}
+    .welcome-box{background:linear-gradient(135deg,#fff8f6,#fff);border:1px solid #f5c4bb;border-radius:16px;padding:34px 38px;font-size:16px;line-height:1.75;color:#333}
+    .welcome-box h2{font-size:21px;margin-bottom:14px}
 
     /* INFO CARDS */
-    .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px}
-    .card{background:var(--light);border-radius:var(--r);padding:26px 22px}
-    .card-icon{font-size:28px;margin-bottom:12px}
-    .card h3{font-size:15px;font-weight:600;margin-bottom:8px}
+    .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(235px,1fr));gap:16px}
+    .card{background:var(--light);border-radius:var(--r);padding:24px 20px}
+    .card-icon{font-size:26px;margin-bottom:10px}
+    .card h3{font-size:14px;font-weight:600;margin-bottom:7px}
     .card p,.card ul{font-size:14px;color:var(--gray);line-height:1.65}
     .card ul{padding-left:16px}
-    .card li{margin-bottom:4px}
+    .card li{margin-bottom:3px}
 
     /* ACTIVITIES */
-    .act-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:22px}
-    .act-card{border-radius:var(--r);overflow:hidden;text-decoration:none;color:inherit;background:var(--white);box-shadow:0 2px 12px rgba(0,0,0,.08);transition:transform .2s,box-shadow .2s;display:block}
-    .act-card:hover{transform:translateY(-4px);box-shadow:0 8px 28px rgba(0,0,0,.14)}
-    .act-img{width:100%;height:190px;object-fit:cover;display:block}
-    .act-ph{width:100%;height:190px;display:flex;align-items:center;justify-content:center;font-size:52px}
-    .act-body{padding:18px 20px 20px}
-    .act-cat{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--red);margin-bottom:6px}
-    .act-body h3{font-size:16px;font-weight:600;margin-bottom:6px}
-    .act-body p{font-size:14px;color:var(--gray);line-height:1.5}
-    .act-link{font-size:13px;color:var(--red);font-weight:500;margin-top:10px}
+    .act-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:20px}
+    .act-card{border-radius:var(--r);overflow:hidden;text-decoration:none;color:inherit;background:var(--white);box-shadow:0 2px 10px rgba(0,0,0,.08);transition:transform .2s,box-shadow .2s;display:block}
+    .act-card:hover{transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.13)}
+    .act-img{width:100%;height:180px;object-fit:cover;display:block}
+    .act-body{padding:16px 18px 18px}
+    .act-cat{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:1px;color:var(--red);margin-bottom:5px}
+    .act-body h3{font-size:15px;font-weight:600;margin-bottom:5px}
+    .act-body p{font-size:13px;color:var(--gray);line-height:1.5}
+    .act-link{font-size:12px;color:var(--red);font-weight:500;margin-top:8px}
 
     /* SKIPASS */
-    .ski-banner{background:linear-gradient(135deg,#0f2e4c,#1e5c8a);border-radius:16px;padding:46px 40px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
-    .ski-text h2{color:#fff;font-size:28px;margin-bottom:10px}
-    .ski-text p{color:rgba(255,255,255,.82);font-size:15px;max-width:480px;line-height:1.65}
-    .ski-btns{display:flex;flex-direction:column;gap:12px;min-width:210px}
-    .btn{display:inline-block;padding:13px 26px;border-radius:8px;font-size:14px;font-weight:600;text-decoration:none;text-align:center;transition:opacity .2s}
+    .ski-banner{background:linear-gradient(135deg,#0f2e4c,#1e5c8a);border-radius:16px;padding:44px 38px;display:flex;align-items:center;justify-content:space-between;gap:22px;flex-wrap:wrap}
+    .ski-text h2{color:#fff;font-size:26px;margin-bottom:10px}
+    .ski-text p{color:rgba(255,255,255,.82);font-size:15px;max-width:460px;line-height:1.65}
+    .ski-btns{display:flex;flex-direction:column;gap:10px;min-width:200px}
+    .btn{display:inline-block;padding:12px 24px;border-radius:8px;font-size:14px;font-weight:600;text-decoration:none;text-align:center;transition:opacity .2s}
     .btn:hover{opacity:.88}
     .btn-red{background:var(--red);color:#fff}
-    .btn-ghost{background:rgba(255,255,255,.15);color:#fff;border:2px solid rgba(255,255,255,.45)}
+    .btn-ghost{background:rgba(255,255,255,.15);color:#fff;border:2px solid rgba(255,255,255,.4)}
 
     /* EMERGENCY */
-    .emergency{background:#fff3f3;border:1px solid #ffcdd2;border-radius:var(--r);padding:24px 28px}
-    .emergency h3{color:#c62828;font-size:16px;font-weight:700;margin-bottom:12px}
-    .emg-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px}
-    .emg-item{background:#fff;border-radius:8px;padding:14px 16px;text-align:center}
-    .emg-item .num{font-size:22px;font-weight:700;color:#c62828}
-    .emg-item .label{font-size:12px;color:var(--gray);margin-top:2px}
+    .emergency{background:#fff3f3;border:1px solid #ffcdd2;border-radius:var(--r);padding:22px 26px}
+    .emergency h3{color:#c62828;font-size:15px;font-weight:700;margin-bottom:12px}
+    .emg-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+    .emg-item{background:#fff;border-radius:8px;padding:12px 14px;text-align:center}
+    .emg-item .num{font-size:20px;font-weight:700;color:#c62828}
+    .emg-item .label{font-size:11px;color:var(--gray);margin-top:2px}
 
-    /* FOOTER */
-    footer{background:var(--dark);color:rgba(255,255,255,.55);text-align:center;padding:28px 20px;font-size:13px;margin-top:0}
+    footer{background:var(--dark);color:rgba(255,255,255,.55);text-align:center;padding:26px 20px;font-size:13px}
 
-    /* RESPONSIVE */
     @media(max-width:768px){
       header{padding:14px 20px}
-      .hero{height:360px}
-      .hero-overlay h1{font-size:30px}
-      .sec{padding:36px 20px}
-      .gallery-grid{grid-template-columns:1fr 1fr;grid-template-rows:160px 160px 160px;max-height:none}
+      .hero{height:300px}
+      .hero-overlay h1{font-size:28px}
+      .sec{padding:34px 20px}
+      .gallery-grid{grid-template-columns:1fr 1fr;grid-template-rows:160px 160px 160px}
       .gallery-grid .g-main{grid-column:1/3;grid-row:1/2}
-      .ski-banner{padding:28px 22px}
-      .ski-text h2{font-size:22px}
+      .ski-banner{padding:26px 20px}
+      .ski-text h2{font-size:20px}
     }
   </style>
 </head>
@@ -120,31 +111,17 @@
   <div class="header-sub">🏔 Wallis, Schweiz · Familie Bokel</div>
 </header>
 
-<!-- HERO SLIDER -->
-<div class="hero-slider" id="heroSlider">
-  <!-- Winter (hintergrund) -->
-  <div class="hs-bg hs-winter">
-    <img src="hero.jpg" alt="Winteransicht Täsch">
+<!-- HERO -->
+<div class="hero">
+  <img id="heroWinter" class="hero-img" src="hero.jpg" alt="Winteransicht Täsch">
+  <img id="heroSommer" class="hero-img hidden" src="balkon.jpg" alt="Sommeransicht Täsch">
+  <div class="hero-btns">
+    <button class="hero-btn active" id="btnWinter" onclick="showHero('winter')">❄️ Winter</button>
+    <button class="hero-btn inactive" id="btnSommer" onclick="showHero('sommer')">☀️ Sommer</button>
   </div>
-  <!-- Sommer (overlay, wird durch Regler beschnitten) -->
-  <div class="hs-bg hs-sommer" id="hsSommer">
-    <img src="balkon.jpg" alt="Sommeransicht Täsch">
-  </div>
-  <!-- Trennlinie -->
-  <div class="hs-divider" id="hsDivider"></div>
-  <!-- Regler-Handle -->
-  <div class="hs-handle" id="hsHandle">
-    <div class="hs-handle-inner">
-      <span>‹</span><span>›</span>
-    </div>
-  </div>
-  <!-- Labels -->
-  <div class="hs-label hs-label-left">❄️ Winter</div>
-  <div class="hs-label hs-label-right">☀️ Sommer</div>
-  <!-- Overlay Text -->
   <div class="hero-overlay">
     <h1>Willkommen in Täsch</h1>
-    <p>Direkt vor den Toren Zermatts — mit Blick auf das kleine Matterhorn</p>
+    <p>Direkt vor den Toren Zermatts — Blick auf das kleine Matterhorn</p>
   </div>
 </div>
 
@@ -157,9 +134,7 @@
     <img src="studio1.jpg" alt="Studio" onclick="openLB(1)">
     <img src="studio2.jpg" alt="Studio" onclick="openLB(2)">
     <img src="https://a0.muscache.com/im/pictures/ce031696-2f2b-4dc6-9571-cf9973d78c4f.jpg" alt="Studio" onclick="openLB(3)">
-    <img src="studio3.jpg" alt="Studio" onclick="openLB(4)">
-    <img src="balkon.jpg" alt="Balkon Aussicht" onclick="openLB(5)">
-    <img src="https://a0.muscache.com/im/pictures/7db7cbb6-be3a-441d-92ca-facfa010b98c.jpg" alt="Studio" onclick="openLB(6)">
+    <img src="studio3.jpg" alt="Studio" onclick="openLB(4)" class="gallery-more" data-more="+8 weitere">
   </div>
 </div>
 
@@ -181,7 +156,7 @@
     <h2>Herzlich Willkommen im Studio Bokel</h2>
     <p>Ihr findet unser Studio im <strong>Haus Miranda</strong> — wenn ihr am Haus ankommt (Haustür ist offen), geht ihr die ersten paar Stufen hinauf. Unser Studio befindet sich im <strong>linken Gang ganz hinten auf der rechten Seite</strong> (Studio Bokel).</p>
     <br>
-    <p>Den Schlüssel findet ihr in der Tür, damit ihr flexibel anreisen könnt. Leider können wir nicht persönlich da sein, um euch zu begrüßen. Bei Abreise den Schlüssel bitte einfach auf den <strong>Küchentisch</strong> legen. <strong>Check-out: bis 12:00 Uhr.</strong></p>
+    <p>Leider können wir nicht persönlich da sein, um euch zu begrüßen. Den Schlüssel findet ihr im <strong>Schlüsselsafe</strong> neben der Eingangstür. Bei Abreise bitte den Schlüssel wieder dort einlegen. <strong>Check-out: bis 12:00 Uhr.</strong></p>
     <br>
     <p>Bei Fragen oder Problemen: <a href="tel:+4917791882274" style="color:var(--red);font-weight:600">+49 1779188274</a> (Familie Bokel)</p>
     <p style="margin-top:12px;color:var(--gray);font-size:14px">Wir drücken die Daumen für viel Sonne und eine gute Sicht auf das Matterhorn! 🏔</p>
@@ -217,35 +192,38 @@
     <div class="card">
       <div class="card-icon">🎿</div>
       <h3>Skiausrüstung trocknen</h3>
-      <p>Nasse Kleidung und Skier im <strong>Heizungskeller/Skikeller</strong> aufhängen und trocknen — Treppe runter, Flur geradeaus.</p>
+      <p>Nasse Kleidung und Skier im <strong>Heizungskeller / Skikeller</strong> trocknen — Treppe runter, Flur geradeaus.</p>
     </div>
     <div class="card">
       <div class="card-icon">🪟</div>
       <h3>Rollläden & Lüften</h3>
       <ul>
-        <li>Rollläden: Band rechts neben Balkontür nach unten ziehen (öffnen) / anheben (schließen)</li>
+        <li>Öffnen: Band rechts neben Balkontür nach unten ziehen</li>
+        <li>Schließen: zu sich heran ziehen und anheben</li>
         <li>Bitte regelmäßig lüften</li>
         <li>Bei Abreise: Fenster auf Kipp lassen</li>
       </ul>
     </div>
     <div class="card">
       <div class="card-icon">🚬</div>
-      <h3>Rauchen & Müll</h3>
+      <h3>Rauchen & Wasser</h3>
       <ul>
         <li>Rauchen nur auf dem Balkon</li>
-        <li>Müllbeutel: nur <strong>offizielle orange Beutel</strong> verwenden (Migros, Müllsteuer enthalten)</li>
-        <li>Trinkwasser aus dem Hahn ist sicher</li>
+        <li>Leitungswasser ist trinkbar</li>
       </ul>
     </div>
     <div class="card">
       <div class="card-icon">🗑</div>
-      <h3>Müllentsorgung</h3>
-      <p>Müll- und Glascontainer: dem Bach entlang bis zum Bahnübergang folgen.</p>
+      <h3>Müll</h3>
+      <ul>
+        <li>Nur <strong>offizielle orange Beutel</strong> verwenden (Migros — Müllsteuer enthalten)</li>
+        <li>Container: dem Bach entlang bis zum Bahnübergang</li>
+      </ul>
     </div>
     <div class="card">
       <div class="card-icon">🔧</div>
       <h3>Kaputtes melden</h3>
-      <p>Falls etwas zu Bruch geht — bitte kurz Bescheid geben, damit wir es für nachfolgende Gäste ersetzen können. Danke!</p>
+      <p>Falls etwas zu Bruch geht — kurz Bescheid geben, damit wir es für nachfolgende Gäste ersetzen können.</p>
     </div>
   </div>
 </div>
@@ -265,20 +243,20 @@
     <div class="card">
       <div class="card-icon">🚊</div>
       <h3>Shuttle nach Zermatt</h3>
-      <p>Der Pendelzug fährt ca. alle <strong>20 Minuten</strong>, Fahrtzeit ~12-20 Min. Der Transfer ist oft im Skipass integriert.</p>
+      <p>Der Pendelzug fährt ca. alle <strong>20 Minuten</strong>, Fahrtzeit ~12 Min. Der Transfer ist oft im Skipass integriert.</p>
     </div>
     <div class="card">
       <div class="card-icon">🥾</div>
-      <h3>Wanderweg Täsch→Zermatt</h3>
-      <p>Ca. <strong>5 km</strong> entlang der Mattervispa nach Zermatt — sehr schöner, einfacher Weg. Den Schildern Richtung Zermatt folgen.</p>
+      <h3>Wanderweg Täsch → Zermatt</h3>
+      <p>Ca. <strong>5 km</strong> entlang der Mattervispa — schöner, einfacher Weg. Den Schildern Richtung Zermatt folgen.</p>
     </div>
     <div class="card">
       <div class="card-icon">🛒</div>
       <h3>Einkaufen</h3>
       <ul>
-        <li><strong>Täsch:</strong> Migros + Coop gegenüber dem Bahnhof</li>
-        <li><strong>Zermatt:</strong> Migros in der Hofmattenstraße</li>
-        <li>Tipp: Supermärkte schließen früh!</li>
+        <li><strong>Täsch:</strong> Migros + Coop gegenüber Bahnhof</li>
+        <li><strong>Zermatt:</strong> Migros, Hofmattenstraße</li>
+        <li>Supermärkte schließen früh!</li>
       </ul>
     </div>
   </div>
@@ -292,65 +270,62 @@
   <div class="sec-sub">Das Beste aus Zermatt und dem Matterhorn-Gebiet</div>
   <div class="act-grid">
 
-    <a class="act-card" href="https://www.gornergrat.ch" target="_blank" rel="noopener">
-      <img class="act-img" src="https://a0.muscache.com/im/pictures/9a57fe60-9b0b-47cc-ab85-bb0d69dffb24.jpg" alt="Gornergrat" onerror="this.style.display='none';this.nextSibling.style.display='flex'">
-      <div class="act-ph" style="display:none;background:linear-gradient(135deg,#e8f4f8,#b0d0e0)">🚞</div>
+    <a class="act-card" href="https://www.gornergrat.ch/de/erleben/bahn" target="_blank" rel="noopener">
+      <img class="act-img" src="https://a0.muscache.com/im/pictures/9a57fe60-9b0b-47cc-ab85-bb0d69dffb24.jpg" alt="Gornergratbahn">
       <div class="act-body">
         <div class="act-cat">Bergbahn</div>
         <h3>Gornergratbahn</h3>
-        <p>Europas höchste Freiluft-Zahnradbahn auf 3.089 m — spektakulärer Blick auf Matterhorn und über 30 Viertausender.</p>
+        <p>Europas höchste Freiluft-Zahnradbahn auf 3.089 m — Matterhorn und 30 Viertausender im Blick.</p>
         <div class="act-link">Tickets buchen →</div>
       </div>
     </a>
 
-    <a class="act-card" href="https://www.matterhornparadise.ch" target="_blank" rel="noopener">
-      <img class="act-img" src="https://a0.muscache.com/im/pictures/10053ee2-abe1-4e22-bfc3-66d993adbc92.jpg" alt="Matterhorn Glacier Paradise" onerror="this.style.display='none';this.nextSibling.style.display='flex'">
-      <div class="act-ph" style="display:none;background:linear-gradient(135deg,#e8f0f8,#b0c8e0)">🏔</div>
+    <a class="act-card" href="https://www.matterhornparadise.ch/de" target="_blank" rel="noopener">
+      <img class="act-img" src="https://a0.muscache.com/im/pictures/10053ee2-abe1-4e22-bfc3-66d993adbc92.jpg" alt="Matterhorn">
       <div class="act-body">
         <div class="act-cat">Bergbahn</div>
         <h3>Matterhorn Glacier Paradise</h3>
-        <p>Höchster Bergbahnhof Europas auf 3.883 m. Ganzjähriges Skigebiet auf dem Gletscher mit Panoramablick.</p>
+        <p>Höchster Bergbahnhof Europas (3.883 m). Ganzjähriges Skigebiet mit atemberaubendem Panorama.</p>
         <div class="act-link">Mehr erfahren →</div>
       </div>
     </a>
 
-    <a class="act-card" href="https://www.zermatters.ch/aktivitaeten/" target="_blank" rel="noopener">
-      <img class="act-img" src="studio4.jpg" alt="Wandern" onerror="this.style.display='none';this.nextSibling.style.display='flex'">
-      <div class="act-ph" style="display:none;background:linear-gradient(135deg,#e8f5e9,#b0d8b0)">🥾</div>
+    <a class="act-card" href="https://www.zermatt.ch/de/wandern" target="_blank" rel="noopener">
+      <img class="act-img" src="studio5.jpg" alt="Wandern">
       <div class="act-body">
         <div class="act-cat">Wandern</div>
         <h3>Wanderwege Zermatt</h3>
-        <p>Über 400 km markierte Wege für alle Schwierigkeitsgrade — inklusive dem Weg entlang der Mattervispa direkt ab Täsch.</p>
+        <p>Über 400 km markierte Wege — vom gemütlichen Spaziergang bis zur alpinen Hochtour.</p>
         <div class="act-link">Routen entdecken →</div>
       </div>
     </a>
 
-    <a class="act-card" href="https://www.matterhornparadise.ch/de/sommer/klettern" target="_blank" rel="noopener">
-      <div class="act-ph" style="background:linear-gradient(135deg,#fce4ec,#e0b0c0)">🧗</div>
+    <a class="act-card" href="https://www.zermatt.ch/de/klettern-und-bergsteigen" target="_blank" rel="noopener">
+      <img class="act-img" src="https://a0.muscache.com/im/pictures/ab109d47-c8ac-4467-b6f1-d7eebd009d49.jpg" alt="Klettern">
       <div class="act-body">
         <div class="act-cat">Klettern & Bergsport</div>
         <h3>Klettern & Bergsteigen</h3>
-        <p>Kletterkurse für alle Levels. Das Matterhorn für ambitionierte Alpinisten — mit zertifizierten Bergführern.</p>
+        <p>Kurse für Einsteiger und Erfahrene. Das Matterhorn für ambitionierte Alpinisten — mit zertifizierten Bergführern.</p>
         <div class="act-link">Infos & Buchung →</div>
       </div>
     </a>
 
-    <a class="act-card" href="https://www.zermatters.ch/aktivitaeten/mountainbike/" target="_blank" rel="noopener">
-      <div class="act-ph" style="background:linear-gradient(135deg,#fff3e0,#e8c88a)">🚵</div>
+    <a class="act-card" href="https://www.zermatt.ch/de/biken" target="_blank" rel="noopener">
+      <img class="act-img" src="https://a0.muscache.com/im/pictures/ef21c32b-4a1a-49af-8f02-ca288d0cc511.jpg" alt="Biken">
       <div class="act-body">
         <div class="act-cat">Biken</div>
         <h3>Mountainbike Trails</h3>
-        <p>Flowige und technische Trails durch alpine Landschaft. Bikeverleih und Shuttle-Service verfügbar.</p>
+        <p>Flowige Trails durch alpine Landschaft. Bikeverleih und Shuttle-Service in Zermatt verfügbar.</p>
         <div class="act-link">Trails ansehen →</div>
       </div>
     </a>
 
-    <a class="act-card" href="https://www.zermatt.ch/matterhorn-museum" target="_blank" rel="noopener">
-      <div class="act-ph" style="background:linear-gradient(135deg,#f3e5f5,#d0a8e0)">🏛</div>
+    <a class="act-card" href="https://www.zermatt.ch/de/matterhorn-museum" target="_blank" rel="noopener">
+      <img class="act-img" src="https://a0.muscache.com/im/pictures/5374aa6f-21c1-4b3f-a06b-25d45599380b.jpg" alt="Museum">
       <div class="act-body">
         <div class="act-cat">Kultur</div>
         <h3>Matterhorn Museum</h3>
-        <p>Geschichte Zermatts und die dramatische Erstbesteigung des Matterhorns 1865. Faszinierendes Untertagmuseum.</p>
+        <p>Geschichte Zermatts und die Erstbesteigung 1865. Faszinierendes Untertagmuseum im Herzen Zermatts.</p>
         <div class="act-link">Museum besuchen →</div>
       </div>
     </a>
@@ -365,7 +340,7 @@
   <div class="ski-banner">
     <div class="ski-text">
       <h2>⛷ Skipass Zermatt</h2>
-      <p>360 km Pistenspaß im Matterhorn Ski Paradise — eines der größten Skigebiete der Alpen. Mit Flex-Skipass die schönsten Tage frei wählen. Ganzjährig Skifahren auf dem Gletscher möglich.</p>
+      <p>360 km Pistenspaß im Matterhorn Ski Paradise — eines der größten Skigebiete der Alpen. Flex-Skipass: die schönsten Tage frei wählen. Ganzjährig Skifahren auf dem Gletscher möglich.</p>
     </div>
     <div class="ski-btns">
       <a class="btn btn-red" href="https://www.matterhornparadise.ch/de/informationen/tickets-tarife/skipass" target="_blank" rel="noopener">Skipass kaufen</a>
@@ -382,7 +357,9 @@
       <div class="emg-item"><div class="num">112</div><div class="label">Allgemeiner Notruf</div></div>
       <div class="emg-item"><div class="num">118</div><div class="label">Feuerwehr</div></div>
       <div class="emg-item"><div class="num">117</div><div class="label">Polizei</div></div>
-      <div class="emg-item"><a href="tel:+4917791882274" style="text-decoration:none"><div class="num" style="font-size:16px">Familie Bokel</div><div class="label">+49 1779188274</div></a></div>
+      <a href="tel:+4917791882274" style="text-decoration:none">
+        <div class="emg-item"><div class="num" style="font-size:15px;line-height:1.3">Familie<br>Bokel</div><div class="label">+49 1779188274</div></div>
+      </a>
     </div>
   </div>
 </div>
@@ -392,52 +369,44 @@
   <p style="margin-top:6px">Herzliche Grüße — Familie Bokel · Viel Spaß beim Wandern und Skifahren! 🏔</p>
 </footer>
 
-<!-- LIGHTBOX JS -->
 <script>
-const imgs=[
+// Hero toggle
+function showHero(mode){
+  var w=document.getElementById('heroWinter');
+  var s=document.getElementById('heroSommer');
+  var bw=document.getElementById('btnWinter');
+  var bs=document.getElementById('btnSommer');
+  if(mode==='winter'){
+    w.classList.remove('hidden');s.classList.add('hidden');
+    bw.className='hero-btn active';bs.className='hero-btn inactive';
+  } else {
+    s.classList.remove('hidden');w.classList.add('hidden');
+    bs.className='hero-btn active';bw.className='hero-btn inactive';
+  }
+}
+
+// Lightbox
+var imgs=[
   'https://a0.muscache.com/im/pictures/b784298f-4533-4c75-abf8-9175221ef08c.jpg',
   'studio1.jpg','studio2.jpg',
   'https://a0.muscache.com/im/pictures/ce031696-2f2b-4dc6-9571-cf9973d78c4f.jpg',
-  'studio3.jpg','balkon.jpg',
+  'studio3.jpg','studio4.jpg','studio5.jpg','studio6.jpg','studio7.jpg','studio8.jpg','studio9.jpg',
+  'balkon.jpg','hero.jpg',
   'https://a0.muscache.com/im/pictures/7db7cbb6-be3a-441d-92ca-facfa010b98c.jpg',
-  'studio4.jpg','studio5.jpg','studio6.jpg','studio7.jpg','studio8.jpg','studio9.jpg',
   'https://a0.muscache.com/im/pictures/9a57fe60-9b0b-47cc-ab85-bb0d69dffb24.jpg',
-  'https://a0.muscache.com/im/pictures/10053ee2-abe1-4e22-bfc3-66d993adbc92.jpg',
-  'https://a0.muscache.com/im/pictures/ab109d47-c8ac-4467-b6f1-d7eebd009d49.jpg',
-  'https://a0.muscache.com/im/pictures/ef21c32b-4a1a-49af-8f02-ca288d0cc511.jpg'
+  'https://a0.muscache.com/im/pictures/10053ee2-abe1-4e22-bfc3-66d993adbc92.jpg'
 ];
-let cur=0;
+var cur=0;
 function openLB(i){cur=i;document.getElementById('lb-img').src=imgs[i];document.getElementById('lb').classList.add('active')}
 function closeLB(){document.getElementById('lb').classList.remove('active')}
 function lbPrev(){cur=(cur-1+imgs.length)%imgs.length;document.getElementById('lb-img').src=imgs[cur]}
 function lbNext(){cur=(cur+1)%imgs.length;document.getElementById('lb-img').src=imgs[cur]}
-document.getElementById('lb').addEventListener('click',function(e){if(e.target===this)closeLB()})
-document.addEventListener('keydown',function(e){if(e.key==='Escape')closeLB();if(e.key==='ArrowLeft')lbPrev();if(e.key==='ArrowRight')lbNext()})
+document.getElementById('lb').addEventListener('click',function(e){if(e.target===this)closeLB()});
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape')closeLB();
+  if(e.key==='ArrowLeft')lbPrev();
+  if(e.key==='ArrowRight')lbNext();
+});
 </script>
-
-<script>
-(function(){
-  var slider=document.getElementById('heroSlider');
-  var sommer=document.getElementById('hsSommer');
-  var divider=document.getElementById('hsDivider');
-  var handle=document.getElementById('hsHandle');
-  var dragging=false;
-  function setPos(x){
-    var rect=slider.getBoundingClientRect();
-    var pct=Math.max(5,Math.min(95,((x-rect.left)/rect.width)*100));
-    var right=100-pct;
-    sommer.style.clipPath='inset(0 '+right+'% 0 0)';
-    divider.style.left=pct+'%';
-    handle.style.left=pct+'%';
-  }
-  slider.addEventListener('mousedown',function(e){dragging=true;setPos(e.clientX)});
-  slider.addEventListener('touchstart',function(e){dragging=true;setPos(e.touches[0].clientX)},{passive:true});
-  window.addEventListener('mousemove',function(e){if(dragging)setPos(e.clientX)});
-  window.addEventListener('touchmove',function(e){if(dragging)setPos(e.touches[0].clientX)},{passive:true});
-  window.addEventListener('mouseup',function(){dragging=false});
-  window.addEventListener('touchend',function(){dragging=false});
-})();
-</script>
-
 </body>
 </html>
