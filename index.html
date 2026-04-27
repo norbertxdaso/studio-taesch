@@ -440,7 +440,7 @@ document.getElementById('lb').addEventListener('click',function(e){if(e.target==
   var bookedSet={};
   var selectStart=null,selectEnd=null;
 
-  fetch('availability.json?v='+Date.now())
+  fetch('availability.json')
     .then(function(r){return r.json();})
     .then(function(j){
       j.booked.forEach(function(d){bookedSet[d]=true;});
