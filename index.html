@@ -184,9 +184,9 @@
   <div class="cal-status" id="calStatus">Kalender wird geladen…</div>
   <div class="cal-wrap" id="calWrap"></div>
   <div class="cal-legend">
-    <span><div class="dot" style="background:var(--light);border:1px solid var(--border)"></div> Frei</span>
-    <span><div class="dot" style="background:#e8472b"></div> Belegt</span>
-    <span><div class="dot" style="background:#1e5c8a"></div> Auswahl</span>
+    <span><div class="dot" style="background:var(--light);border:1px solid var(--border)"></div> <span data-i18n="cal-legend-free">Frei</span></span>
+    <span><div class="dot" style="background:#e8472b"></div> <span data-i18n="cal-legend-booked">Belegt</span></span>
+    <span><div class="dot" style="background:#1e5c8a"></div> <span data-i18n="cal-legend-sel">Auswahl</span></span>
   </div>
 
   <!-- BUCHUNGSFORMULAR -->
@@ -199,15 +199,15 @@
     <!-- Body -->
     <div style="padding:24px 28px;display:flex;flex-direction:column;gap:14px">
       <div>
-        <label style="font-size:12px;font-weight:600;color:var(--gray);text-transform:uppercase;letter-spacing:.5px">Name</label>
+        <label data-i18n="book-name-label" style="font-size:12px;font-weight:600;color:var(--gray);text-transform:uppercase;letter-spacing:.5px">Name</label>
         <input id="bkName" type="text" placeholder="" data-i18n-ph="book-name" style="margin-top:5px;padding:11px 13px;border-radius:8px;border:1px solid var(--border);font-size:15px;width:100%;display:block">
       </div>
       <div>
-        <label style="font-size:12px;font-weight:600;color:var(--gray);text-transform:uppercase;letter-spacing:.5px">E-Mail</label>
+        <label data-i18n="book-email-label" style="font-size:12px;font-weight:600;color:var(--gray);text-transform:uppercase;letter-spacing:.5px">E-Mail</label>
         <input id="bkEmail" type="email" placeholder="" data-i18n-ph="book-email" style="margin-top:5px;padding:11px 13px;border-radius:8px;border:1px solid var(--border);font-size:15px;width:100%;display:block">
       </div>
       <div>
-        <label style="font-size:12px;font-weight:600;color:var(--gray);text-transform:uppercase;letter-spacing:.5px">Personen (max. 2)</label>
+        <label data-i18n="book-guests-label" style="font-size:12px;font-weight:600;color:var(--gray);text-transform:uppercase;letter-spacing:.5px">Personen (max. 2)</label>
         <select id="bkGuests" style="margin-top:5px;padding:11px 13px;border-radius:8px;border:1px solid var(--border);font-size:15px;width:100%;display:block;background:#fff;appearance:none;cursor:pointer">
           <option value="" data-i18n="book-guests-ph">Bitte wählen</option>
           <option value="1" data-i18n="book-p1">1 Person</option>
@@ -215,7 +215,7 @@
         </select>
       </div>
       <div>
-        <label style="font-size:12px;font-weight:600;color:var(--gray);text-transform:uppercase;letter-spacing:.5px">Anmerkungen (optional)</label>
+        <label data-i18n="book-msg-label" style="font-size:12px;font-weight:600;color:var(--gray);text-transform:uppercase;letter-spacing:.5px">Anmerkungen (optional)</label>
         <textarea id="bkMsg" placeholder="" data-i18n-ph="book-msg" rows="3" style="margin-top:5px;padding:11px 13px;border-radius:8px;border:1px solid var(--border);font-size:15px;width:100%;display:block;resize:vertical"></textarea>
       </div>
     </div>
@@ -224,7 +224,7 @@
       <button onclick="resetSelection()" style="padding:10px 18px;border-radius:8px;border:1px solid var(--border);background:#fff;font-size:14px;cursor:pointer;color:var(--gray)" data-i18n="book-reset">Zurücksetzen</button>
       <button onclick="submitBooking()" style="flex:1;padding:12px 24px;border-radius:8px;border:none;background:#0070ba;color:#fff;font-size:15px;font-weight:600;cursor:pointer" data-i18n="book-cta">💳 Jetzt buchen &amp; per PayPal zahlen</button>
     </div>
-    <p style="text-align:center;font-size:11px;color:var(--gray);padding:0 28px 16px">100 CHF / Nacht · 60 CHF Reinigung · Mindestens 4 Nächte · Zahlung sicher über PayPal</p>
+    <p style="text-align:center;font-size:11px;color:var(--gray);padding:0 28px 16px" data-i18n="book-price-note">100 CHF / Nacht · 60 CHF Reinigung · Mindestens 4 Nächte · Zahlung sicher über PayPal</p>
   </div>
 </div>
 <div class="divider"></div>
@@ -233,8 +233,7 @@
 <div class="sec">
   <div class="sec-title" data-i18n="welcome-title">Hallo liebe Gäste!</div>
   <div class="sec-sub" data-i18n="welcome-sub">Wir freuen uns, euch in unserem Studio begrüßen zu dürfen</div>
-  <div class="welcome-box">
-    <h2>Herzlich Willkommen im Studio Bokel</h2>
+  <div class="welcome-box" data-i18n-html="welcome-body" id="welcome-body-el"><h2>Herzlich Willkommen im Studio Bokel</h2>
     <p>Ihr findet unser Studio im <strong>Haus Miranda</strong> — wenn ihr am Haus ankommt (Haustür ist offen), geht ihr die ersten paar Stufen hinauf. Unser Studio befindet sich im <strong>linken Gang ganz hinten auf der rechten Seite</strong> (Studio Bokel).</p>
     <br>
     <p>Leider können wir nicht persönlich da sein, um euch zu begrüßen. Den Schlüssel findet ihr im <strong>Schlüsselsafe</strong> neben der Eingangstür. Bei Abreise bitte den Schlüssel wieder dort einlegen. <strong>Check-out: bis 12:00 Uhr.</strong></p>
@@ -249,14 +248,14 @@
 <!-- REGELN -->
 <div class="sec">
   <div class="sec-title" data-i18n="rules-title">Hausregeln &amp; Check-out</div>
-  <div class="sec-sub">House Rules &amp; Check-out</div>
+  <div class="sec-sub" data-i18n="rules-title">Hausregeln &amp; Check-out</div>
 
   <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px">
 
     <div style="background:#fff8f6;border:2px solid #f5c4bb;border-radius:16px;padding:24px 22px">
       <div style="font-size:22px;margin-bottom:10px">🏠</div>
-      <div style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--red);margin-bottom:10px">Hausregeln · House Rules</div>
-      <ul style="list-style:none;padding:0;font-size:14px;line-height:2;color:#333">
+      <div data-i18n-html="rules-house-label" style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--red);margin-bottom:10px">Hausregeln</div>
+      <ul data-i18n-html="rules-house" style="list-style:none;padding:0;font-size:14px;line-height:2;color:#333">
         <li>🌬 Studio lüften wann immer möglich · Ventilate whenever possible</li>
         <li>🪟 Vorsichtig mit den Rollläden · Be gentle with the window shades</li>
         <li>🚬 Rauchen nur auf dem Balkon · Smoking only on the balcony</li>
@@ -266,8 +265,8 @@
 
     <div style="background:#f0f7ff;border:2px solid #b3d4f5;border-radius:16px;padding:24px 22px">
       <div style="font-size:22px;margin-bottom:10px">✅</div>
-      <div style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#1e5c8a;margin-bottom:10px">Check-out bis 12:00 Uhr · by 12:00 pm</div>
-      <ul style="list-style:none;padding:0;font-size:14px;line-height:2;color:#333">
+      <div data-i18n-html="rules-checkout-label" style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#1e5c8a;margin-bottom:10px">Check-out bis 12:00 Uhr</div>
+      <ul data-i18n-html="rules-checkout" style="list-style:none;padding:0;font-size:14px;line-height:2;color:#333">
         <li>🪟 Fenster auf Kippstellung · Put windows in tilting position</li>
         <li>🍽 Geschirr spülen &amp; Küche sauber · Clean dishes and kitchen</li>
         <li>🗑 Orangene Müllsäcke in den Container · Orange garbage bags to the dumpster</li>
@@ -277,8 +276,8 @@
 
     <div style="background:#f0fff4;border:2px solid #b2dfdb;border-radius:16px;padding:24px 22px">
       <div style="font-size:22px;margin-bottom:10px">🆘</div>
-      <div style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#2e7d32;margin-bottom:10px">Notfall · Emergency</div>
-      <ul style="list-style:none;padding:0;font-size:14px;line-height:2;color:#333">
+      <div data-i18n-html="rules-emergency-label" style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#2e7d32;margin-bottom:10px">Notfall</div>
+      <ul data-i18n-html="rules-emergency" style="list-style:none;padding:0;font-size:14px;line-height:2;color:#333">
         <li>📞 Notruf Schweiz · Emergency CH: <strong>112</strong></li>
         <li>🚒 Feuerwehr · Fire: <strong>118</strong></li>
         <li>🚓 Polizei · Police: <strong>117</strong></li>
@@ -490,12 +489,12 @@
 <div class="sec">
   <div class="ski-banner">
     <div class="ski-text">
-      <h2>⛷ Skipass Zermatt</h2>
-      <p>360 km Pistenspaß im Matterhorn Ski Paradise — eines der größten Skigebiete der Alpen. Flex-Skipass: die schönsten Tage frei wählen. Ganzjährig Skifahren auf dem Gletscher möglich.</p>
+      <h2 data-i18n="skipass-title">⛷ Skipass Zermatt</h2>
+      <p data-i18n="skipass-desc">360 km Pistenspaß im Matterhorn Ski Paradise — eines der größten Skigebiete der Alpen. Flex-Skipass: die schönsten Tage frei wählen. Ganzjährig Skifahren auf dem Gletscher möglich.</p>
     </div>
     <div class="ski-btns">
-      <a class="btn btn-red" href="https://www.matterhornparadise.ch/de/informationen/tickets-tarife/skipass" target="_blank" rel="noopener">Skipass kaufen</a>
-      <a class="btn btn-ghost" href="https://www.gornergrat.ch/de/products/skipass" target="_blank" rel="noopener">Gornergrat Tickets</a>
+      <a class="btn btn-red" href="https://www.matterhornparadise.ch/de/informationen/tickets-tarife/skipass" target="_blank" rel="noopener" data-i18n="skipass-btn1">Skipass kaufen</a>
+      <a class="btn btn-ghost" href="https://www.gornergrat.ch/de/products/skipass" target="_blank" rel="noopener" data-i18n="skipass-btn2">Gornergrat Tickets</a>
     </div>
   </div>
 </div>
@@ -663,6 +662,7 @@ document.addEventListener('keydown',function(e){
 
 
 // === i18n ===
+var I18N_SECTIONS = {"welcome-body": {"de": "<h2>Herzlich Willkommen im Studio Bokel</h2><p>Ihr findet unser Studio im <strong>Haus Miranda</strong> — wenn ihr am Haus ankommt (Haustür ist offen), geht ihr die ersten paar Stufen hinauf. Unser Studio befindet sich im <strong>linken Gang ganz hinten auf der rechten Seite</strong> (Studio Bokel).</p><br><p>Leider können wir nicht persönlich da sein, um euch zu begrüßen. Den Schlüssel findet ihr im <strong>Schlüsselsafe</strong> neben der Eingangstür. Bei Abreise bitte den Schlüssel wieder dort einlegen. <strong>Check-out: bis 12:00 Uhr.</strong></p><br><p>Bei Fragen oder Problemen: <button onclick=\"revealContact()\" style=\"background:none;border:none;color:var(--red);font-weight:600;cursor:pointer;font-size:inherit;padding:0;text-decoration:underline\">📞 Kontakt anzeigen</button><span id=\"contactReveal\" style=\"display:none\"> <a href=\"tel:+4917791882274\" style=\"color:var(--red);font-weight:600\">+49 1779188274</a></span></p><p style=\"margin-top:12px;color:var(--gray);font-size:14px\">Wir drücken die Daumen für viel Sonne und eine gute Sicht auf das Matterhorn! 🏔</p>", "en": "<h2>Welcome to Studio Bokel</h2><p>You'll find our studio in <strong>Haus Miranda</strong> — when you arrive at the building (front door is open), go up the first few steps. Our studio is in the <strong>left corridor, all the way to the back on the right side</strong> (Studio Bokel).</p><br><p>Unfortunately we cannot be there in person to greet you. You'll find the key in the <strong>key safe</strong> next to the entrance door. Please return it there when you leave. <strong>Check-out: by 12:00 pm.</strong></p><br><p>Any questions or problems: <button onclick=\"revealContact()\" style=\"background:none;border:none;color:var(--red);font-weight:600;cursor:pointer;font-size:inherit;padding:0;text-decoration:underline\">📞 Show contact</button><span id=\"contactReveal\" style=\"display:none\"> <a href=\"tel:+4917791882274\" style=\"color:var(--red);font-weight:600\">+49 1779188274</a></span></p><p style=\"margin-top:12px;color:var(--gray);font-size:14px\">We hope for lots of sunshine and clear views of the Matterhorn! 🏔</p>", "fr": "<h2>Bienvenue au Studio Bokel</h2><p>Vous trouverez notre studio dans <strong>Haus Miranda</strong> — en arrivant au bâtiment (porte d'entrée ouverte), montez les premières marches. Notre studio se trouve dans le <strong>couloir de gauche, tout au fond à droite</strong> (Studio Bokel).</p><br><p>Malheureusement nous ne pouvons pas être présents pour vous accueillir. Vous trouverez la clé dans le <strong>coffre à clés</strong> à côté de la porte d'entrée. Merci de la remettre au départ. <strong>Départ : avant 12h00.</strong></p><br><p>Questions ou problèmes : <button onclick=\"revealContact()\" style=\"background:none;border:none;color:var(--red);font-weight:600;cursor:pointer;font-size:inherit;padding:0;text-decoration:underline\">📞 Afficher le contact</button><span id=\"contactReveal\" style=\"display:none\"> <a href=\"tel:+4917791882274\" style=\"color:var(--red);font-weight:600\">+49 1779188274</a></span></p><p style=\"margin-top:12px;color:var(--gray);font-size:14px\">Nous vous souhaitons beaucoup de soleil et une belle vue sur le Cervin ! 🏔</p>", "es": "<h2>Bienvenidos al Studio Bokel</h2><p>Encontraréis nuestro estudio en <strong>Haus Miranda</strong> — al llegar al edificio (puerta principal abierta), subid los primeros peldaños. Nuestro estudio está en el <strong>pasillo izquierdo, al fondo a la derecha</strong> (Studio Bokel).</p><br><p>Lamentablemente no podemos estar en persona para daros la bienvenida. Encontraréis la llave en la <strong>caja de seguridad</strong> junto a la puerta de entrada. Por favor devolvedla al marcharos. <strong>Salida: antes de las 12:00 h.</strong></p><br><p>Preguntas o problemas: <button onclick=\"revealContact()\" style=\"background:none;border:none;color:var(--red);font-weight:600;cursor:pointer;font-size:inherit;padding:0;text-decoration:underline\">📞 Mostrar contacto</button><span id=\"contactReveal\" style=\"display:none\"> <a href=\"tel:+4917791882274\" style=\"color:var(--red);font-weight:600\">+49 1779188274</a></span></p><p style=\"margin-top:12px;color:var(--gray);font-size:14px\">¡Esperamos que tengáis mucho sol y buenas vistas del Matterhorn! 🏔</p>", "tlh": "<h2>nuqneH Studio Bokel!</h2><p><strong>Haus Miranda</strong> yIjaH — lojmIt yIpoSmoH, bIQDaq yIjaH. Studio Bokel: <strong>poSDaq ghIq nIHDaq</strong>.</p><br><p>maHDaq maqomlaHbe'. naQ DaSamlaH: <strong>lojmIt tlhegh</strong>. bImejDI' yIchenmoH. <strong>mej: 12:00 rep.</strong></p><br><p>bIpIHchugh: <button onclick=\"revealContact()\" style=\"background:none;border:none;color:var(--red);font-weight:600;cursor:pointer;font-size:inherit;padding:0;text-decoration:underline\">📞 QIn yIlegh</button><span id=\"contactReveal\" style=\"display:none\"> <a href=\"tel:+4917791882274\" style=\"color:var(--red);font-weight:600\">+49 1779188274</a></span></p><p style=\"margin-top:12px;color:var(--gray);font-size:14px\">mathorn yIlegh — Qapla'! 🏔</p>"}, "rules-house-label": {"de": "Hausregeln", "en": "House Rules", "fr": "Règles de la maison", "es": "Normas de la casa", "tlh": "malja' Sugh"}, "rules-house": {"de": "<li>🌬 Studio lüften wann immer möglich</li><li>🪟 Vorsichtig mit den Rollläden umgehen</li><li>🚬 Rauchen nur auf dem Balkon</li><li>🎿 Skiklamotten im Heizungsraum trocknen</li>", "en": "<li>🌬 Ventilate the studio whenever possible</li><li>🪟 Be gentle with the window shades</li><li>🚬 Smoking only on the balcony</li><li>🎿 Dry ski-clothes in the boiler room downstairs</li>", "fr": "<li>🌬 Aérez le studio aussi souvent que possible</li><li>🪟 Manipulez les volets avec précaution</li><li>🚬 Fumer uniquement sur le balcon</li><li>🎿 Séchez vos vêtements de ski dans la chaufferie</li>", "es": "<li>🌬 Ventilad el estudio siempre que sea posible</li><li>🪟 Tened cuidado con las persianas</li><li>🚬 Fumar solo en el balcón</li><li>🎿 Secad la ropa de esquí en el cuarto de calderas</li>", "tlh": "<li>🌬 yuQHom yIruch</li><li>🪟 Hugh yIlo'Qo'</li><li>🚬 qev naDev neH</li><li>🎿 HIq pa'Daq yIHom</li>"}, "rules-checkout-label": {"de": "Check-out bis 12:00 Uhr", "en": "Check-out by 12:00 pm", "fr": "Départ avant 12h00", "es": "Salida antes de las 12:00 h", "tlh": "mej 12:00 ret"}, "rules-checkout": {"de": "<li>🪟 Fenster auf Kippstellung bringen</li><li>🍽 Geschirr spülen & Küche sauber hinterlassen</li><li>🗑 Orangene Müllsäcke in den Container werfen</li><li>🔑 Schlüssel auf den Küchentisch legen</li>", "en": "<li>🪟 Put windows in tilting position</li><li>🍽 Clean dishes and leave kitchen tidy</li><li>🗑 Take orange garbage bags to the dumpster</li><li>🔑 Leave the key on the kitchen table</li>", "fr": "<li>🪟 Mettre les fenêtres en position entrouverte</li><li>🍽 Faire la vaisselle et laisser la cuisine propre</li><li>🗑 Déposer les sacs poubelles orange dans le conteneur</li><li>🔑 Laisser la clé sur la table de cuisine</li>", "es": "<li>🪟 Poner las ventanas en posición de basculante</li><li>🍽 Fregar los platos y dejar la cocina limpia</li><li>🗑 Llevar las bolsas naranjas de basura al contenedor</li><li>🔑 Dejar la llave en la mesa de la cocina</li>", "tlh": "<li>🪟 Hugh yIpoSmoH</li><li>🍽 HIq yIpe'</li><li>🗑 SoQ Duj yIghoS</li><li>🔑 naQ raS yIlanmoH</li>"}, "rules-emergency-label": {"de": "Notfall", "en": "Emergency", "fr": "Urgence", "es": "Emergencia", "tlh": "nom yIjaH"}, "rules-emergency": {"de": "<li>📞 Notruf Schweiz: <strong>112</strong></li><li>🚒 Feuerwehr: <strong>118</strong></li><li>🚓 Polizei: <strong>117</strong></li><li>👨‍👩‍👧 Familie Bokel: <button onclick=\"revealContact2()\" style=\"background:none;border:none;color:var(--red);font-weight:600;cursor:pointer;font-size:inherit;padding:0;text-decoration:underline\">Nummer anzeigen</button><span id=\"contactReveal2\" style=\"display:none\"><a href=\"tel:+4917791882274\" style=\"color:var(--red);font-weight:600\">+49 1779188274</a></span></li>", "en": "<li>📞 Emergency Switzerland: <strong>112</strong></li><li>🚒 Fire: <strong>118</strong></li><li>🚓 Police: <strong>117</strong></li><li>👨‍👩‍👧 Bokel Family: <button onclick=\"revealContact2()\" style=\"background:none;border:none;color:var(--red);font-weight:600;cursor:pointer;font-size:inherit;padding:0;text-decoration:underline\">Show number</button><span id=\"contactReveal2\" style=\"display:none\"><a href=\"tel:+4917791882274\" style=\"color:var(--red);font-weight:600\">+49 1779188274</a></span></li>", "fr": "<li>📞 Urgences Suisse: <strong>112</strong></li><li>🚒 Pompiers: <strong>118</strong></li><li>🚓 Police: <strong>117</strong></li><li>👨‍👩‍👧 Famille Bokel: <button onclick=\"revealContact2()\" style=\"background:none;border:none;color:var(--red);font-weight:600;cursor:pointer;font-size:inherit;padding:0;text-decoration:underline\">Afficher numéro</button><span id=\"contactReveal2\" style=\"display:none\"><a href=\"tel:+4917791882274\" style=\"color:var(--red);font-weight:600\">+49 1779188274</a></span></li>", "es": "<li>📞 Emergencias Suiza: <strong>112</strong></li><li>🚒 Bomberos: <strong>118</strong></li><li>🚓 Policía: <strong>117</strong></li><li>👨‍👩‍👧 Familia Bokel: <button onclick=\"revealContact2()\" style=\"background:none;border:none;color:var(--red);font-weight:600;cursor:pointer;font-size:inherit;padding:0;text-decoration:underline\">Mostrar número</button><span id=\"contactReveal2\" style=\"display:none\"><a href=\"tel:+4917791882274\" style=\"color:var(--red);font-weight:600\">+49 1779188274</a></span></li>", "tlh": "<li>📞 Swiss nom: <strong>112</strong></li><li>🚒 qul: <strong>118</strong></li><li>🚓 chaw': <strong>117</strong></li><li>👨‍👩‍👧 boQel tuq: <button onclick=\"revealContact2()\" style=\"background:none;border:none;color:var(--red);font-weight:600;cursor:pointer;font-size:inherit;padding:0;text-decoration:underline\">QIn yIlegh</button><span id=\"contactReveal2\" style=\"display:none\"><a href=\"tel:+4917791882274\" style=\"color:var(--red);font-weight:600\">+49 1779188274</a></span></li>"}, "book-price-note": {"de": "100 CHF / Nacht · 60 CHF Reinigung · Mindestens 4 Nächte · Zahlung sicher über PayPal", "en": "CHF 100 / night · CHF 60 cleaning · Min. 4 nights · Secure payment via PayPal", "fr": "100 CHF / nuit · 60 CHF ménage · Min. 4 nuits · Paiement sécurisé PayPal", "es": "100 CHF / noche · 60 CHF limpieza · Mín. 4 noches · Pago seguro PayPal", "tlh": "100 CHF / ram · 60 CHF pe'vIl · 4 ram · PayPal"}, "book-name-label": {"de": "Name", "en": "Name", "fr": "Nom", "es": "Nombre", "tlh": "pong"}, "book-email-label": {"de": "E-Mail", "en": "E-Mail", "fr": "E-Mail", "es": "Correo electrónico", "tlh": "QIn"}, "book-guests-label": {"de": "Personen (max. 2)", "en": "Persons (max. 2)", "fr": "Personnes (max. 2)", "es": "Personas (máx. 2)", "tlh": "nuvpu' (max. 2)"}, "book-msg-label": {"de": "Anmerkungen (optional)", "en": "Notes (optional)", "fr": "Remarques (optionnel)", "es": "Observaciones (opcional)", "tlh": "bIjatlh (opt.)"}, "cal-legend-free": {"de": "Frei", "en": "Available", "fr": "Disponible", "es": "Libre", "tlh": "DaH"}, "cal-legend-booked": {"de": "Belegt", "en": "Booked", "fr": "Réservé", "es": "Ocupado", "tlh": "Qap"}, "cal-legend-sel": {"de": "Auswahl", "en": "Selection", "fr": "Sélection", "es": "Selección", "tlh": "wIv"}, "skipass-title": {"de": "⛷ Skipass Zermatt", "en": "⛷ Zermatt Ski Pass", "fr": "⛷ Forfait ski Zermatt", "es": "⛷ Forfait de esquí Zermatt", "tlh": "⛷ Ski Zermatt"}, "skipass-desc": {"de": "360 km Pistenspaß im Matterhorn Ski Paradise — eines der größten Skigebiete der Alpen. Flex-Skipass: die schönsten Tage frei wählen. Ganzjährig Skifahren auf dem Gletscher möglich.", "en": "360 km of slopes in the Matterhorn Ski Paradise — one of the largest ski areas in the Alps. Flex pass: choose your best days freely. Year-round skiing on the glacier.", "fr": "360 km de pistes au Matterhorn Ski Paradise — l'un des plus grands domaines skiables des Alpes. Forfait Flex : choisissez vos meilleures journées. Ski toute l'année sur le glacier.", "es": "360 km de pistas en el Matterhorn Ski Paradise — uno de los dominios esquiables más grandes de los Alpes. Forfait Flex: elige tus mejores días libremente. Esquí todo el año en el glaciar.", "tlh": "360 km ski paradise — Alp Dung. Glacier yIghoS Hoch DIS."}, "skipass-btn1": {"de": "Skipass kaufen", "en": "Buy Ski Pass", "fr": "Acheter le forfait", "es": "Comprar forfait", "tlh": "HIq yIje'"}, "skipass-btn2": {"de": "Gornergrat Tickets", "en": "Gornergrat Tickets", "fr": "Billets Gornergrat", "es": "Entradas Gornergrat", "tlh": "Gornergrat HIq"}, "rules-title": {"de": "Hausregeln & Check-out", "en": "House Rules & Check-out", "fr": "Règles de la maison & Départ", "es": "Normas de la casa & Salida", "tlh": "malja' Sugh & mej"}};
 var TRANSLATIONS = {
   de: {
     "nav-sub": "🏔 Wallis, Schweiz · Familie Bokel",
@@ -824,13 +824,21 @@ function setLang(lang) {
 
 function applyLang(lang) {
   var t = TRANSLATIONS[lang] || TRANSLATIONS.de;
+  var s = I18N_SECTIONS;
   document.querySelectorAll('[data-i18n]').forEach(function(el) {
     var key = el.getAttribute('data-i18n');
-    if (t[key] !== undefined) el.innerHTML = t[key];
+    var val = (t[key] !== undefined) ? t[key] : (s[key] && s[key][lang] ? s[key][lang] : null);
+    if (val !== null) el.innerHTML = val;
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(function(el) {
+    var key = el.getAttribute('data-i18n-html');
+    var val = s[key] && s[key][lang] ? s[key][lang] : (s[key] && s[key].de ? s[key].de : null);
+    if (val !== null) el.innerHTML = val;
   });
   document.querySelectorAll('[data-i18n-ph]').forEach(function(el) {
     var key = el.getAttribute('data-i18n-ph');
-    if (t[key] !== undefined) el.placeholder = t[key];
+    var val = (t[key] !== undefined) ? t[key] : (s[key] && s[key][lang] ? s[key][lang] : null);
+    if (val !== null) el.placeholder = val;
   });
   document.documentElement.lang = lang;
 }
