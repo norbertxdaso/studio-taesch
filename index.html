@@ -188,7 +188,7 @@
       <button onclick="resetSelection()" style="padding:11px 20px;border-radius:8px;border:1px solid var(--border);background:#fff;font-size:14px;cursor:pointer">Auswahl zurücksetzen</button>
       <button onclick="submitBooking()" style="padding:11px 24px;border-radius:8px;border:none;background:#0070ba;color:#fff;font-size:14px;font-weight:600;cursor:pointer">💳 Weiter zu PayPal</button>
     </div>
-    <p style="font-size:12px;color:var(--gray);margin-top:12px">Preis: <strong>90 € / Nacht</strong> · Zahlung sicher über PayPal · Keine Buchungsgebühren</p>
+    <p style="font-size:12px;color:var(--gray);margin-top:12px">Preis: <strong>100 CHF / Nacht</strong> + <strong>60 CHF Reinigung</strong> pro Buchung · Zahlung sicher über PayPal · Keine Buchungsgebühren</p>
   </div>
 </div>
 <div class="divider"></div>
@@ -529,8 +529,8 @@ document.getElementById('lb').addEventListener('click',function(e){if(e.target==
     if(selectStart&&selectEnd){
       var s=new Date(selectStart),e=new Date(selectEnd);
       var nights=Math.round((e-s)/(1000*60*60*24));
-      var total=nights*90;
-      sum.textContent='Anreise: '+fmtDE(s)+' · Abreise: '+fmtDE(e)+' · '+nights+' Nächte · '+total+' €';
+      var total=nights*100+60;
+      sum.textContent='Anreise: '+fmtDE(s)+' · Abreise: '+fmtDE(e)+' · '+nights+' Nächte · '+(nights*100)+' CHF + 60 CHF Reinigung = '+total+' CHF';
       box.style.display='block';
     } else {
       box.style.display='none';
@@ -551,12 +551,12 @@ document.getElementById('lb').addEventListener('click',function(e){if(e.target==
     var guests=document.getElementById('bkGuests').value.trim();
     if(!name||!email||!guests){alert('Bitte Name, E-Mail und Personenzahl angeben.');return;}
     var nights=Math.round((new Date(selectEnd)-new Date(selectStart))/(1000*60*60*24));
-    var total=nights*90;
+    var total=nights*100+60;
     // PayPal.me link with amount
-    var paypalUrl='https://www.paypal.com/paypalme/bokeltaesch/'+total+'EUR';
+    var paypalUrl='https://paypal.me/CarstenBokel/'+total+'CHF';
     // Also open mailto as backup
     var subject=encodeURIComponent('Buchungsanfrage Studio Täsch: '+selectStart+' bis '+selectEnd);
-    var body=encodeURIComponent('Name: '+name+'\nE-Mail: '+email+'\nPersonen: '+guests+'\nAnreise: '+selectStart+'\nAbreise: '+selectEnd+'\nNächte: '+nights+'\nBetrag: '+total+' €\n\nNachricht: '+document.getElementById('bkMsg').value);
+    var body=encodeURIComponent('Name: '+name+'\nE-Mail: '+email+'\nPersonen: '+guests+'\nAnreise: '+selectStart+'\nAbreise: '+selectEnd+'\nNächte: '+nights+'\nBetrag: '+total+' CHF (inkl. 60 CHF Reinigung)\n\nNachricht: '+document.getElementById('bkMsg').value);
     window.open('mailto:norbert_bot@dasobot.cloud?subject='+subject+'&body='+body);
     setTimeout(function(){window.open(paypalUrl,'_blank');},500);
   };
