@@ -231,6 +231,51 @@
 
 <div class="divider"></div>
 
+<!-- REGELN -->
+<div class="sec">
+  <div class="sec-title">Hausregeln &amp; Check-out</div>
+  <div class="sec-sub">House Rules &amp; Check-out</div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px">
+
+    <div style="background:#fff8f6;border:2px solid #f5c4bb;border-radius:16px;padding:24px 22px">
+      <div style="font-size:22px;margin-bottom:10px">🏠</div>
+      <div style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--red);margin-bottom:10px">Hausregeln · House Rules</div>
+      <ul style="list-style:none;padding:0;font-size:14px;line-height:2;color:#333">
+        <li>🌬 Studio lüften wann immer möglich · Ventilate whenever possible</li>
+        <li>🪟 Vorsichtig mit den Rollläden · Be gentle with the window shades</li>
+        <li>🚬 Rauchen nur auf dem Balkon · Smoking only on the balcony</li>
+        <li>🎿 Skiklamotten im Heizungsraum trocknen · Dry ski-clothes in the boiler room downstairs</li>
+      </ul>
+    </div>
+
+    <div style="background:#f0f7ff;border:2px solid #b3d4f5;border-radius:16px;padding:24px 22px">
+      <div style="font-size:22px;margin-bottom:10px">✅</div>
+      <div style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#1e5c8a;margin-bottom:10px">Check-out bis 12:00 Uhr · by 12:00 pm</div>
+      <ul style="list-style:none;padding:0;font-size:14px;line-height:2;color:#333">
+        <li>🪟 Fenster auf Kippstellung · Put windows in tilting position</li>
+        <li>🍽 Geschirr spülen &amp; Küche sauber · Clean dishes and kitchen</li>
+        <li>🗑 Orangene Müllsäcke in den Container · Orange garbage bags to the dumpster</li>
+        <li>🔑 Schlüssel auf den Küchentisch legen · Leave key on the kitchen table</li>
+      </ul>
+    </div>
+
+    <div style="background:#f0fff4;border:2px solid #b2dfdb;border-radius:16px;padding:24px 22px">
+      <div style="font-size:22px;margin-bottom:10px">🆘</div>
+      <div style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:#2e7d32;margin-bottom:10px">Notfall · Emergency</div>
+      <ul style="list-style:none;padding:0;font-size:14px;line-height:2;color:#333">
+        <li>📞 Notruf Schweiz · Emergency CH: <strong>112</strong></li>
+        <li>🚒 Feuerwehr · Fire: <strong>118</strong></li>
+        <li>🚓 Polizei · Police: <strong>117</strong></li>
+        <li>👨‍👩‍👧 Familie Bokel: <button onclick="revealContact2()" style="background:none;border:none;color:var(--red);font-weight:600;cursor:pointer;font-size:inherit;padding:0;text-decoration:underline">Nummer anzeigen</button><span id="contactReveal2" style="display:none"><a href="tel:+4917791882274" style="color:var(--red);font-weight:600">+49 1779188274</a></span></li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<div class="divider"></div>
+
 <!-- AUSSTATTUNG -->
 <div class="sec">
   <div class="sec-title">Ausstattung & Hinweise</div>
@@ -601,6 +646,10 @@ document.addEventListener('keydown',function(e){
   if(e.key==='ArrowRight')lbNext();
 });
 
+window.revealContact2=function(){
+  var el=document.getElementById('contactReveal2');
+  if(el)el.style.display='inline';
+};
 window.revealContact=function(){
   var el=document.getElementById('contactReveal');
   if(el)el.style.display='inline';
