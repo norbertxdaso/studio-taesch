@@ -14,6 +14,18 @@
     .logo{font-size:20px;font-weight:700;color:var(--red)}.logo span{color:var(--dark)}
     .header-sub{color:var(--gray);font-size:13px}
 
+    /* NAV TABS */
+    .nav-tabs{background:var(--white);border-bottom:1px solid var(--border);padding:0 40px;display:flex;gap:0;overflow-x:auto;position:sticky;top:57px;z-index:99;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+    .nav-tabs::-webkit-scrollbar{display:none}
+    .nav-tab{padding:14px 20px;font-size:13px;font-weight:600;color:var(--gray);text-decoration:none;white-space:nowrap;border-bottom:2px solid transparent;transition:color .2s,border-color .2s}
+    .nav-tab:hover{color:var(--dark)}
+    .nav-tab.active{color:var(--red);border-bottom-color:var(--red)}
+
+    /* DISCLAIMER */
+    .disclaimer{background:var(--light);border:1px solid var(--border);border-radius:var(--r);padding:28px 32px;font-size:13px;line-height:1.8;color:var(--gray)}
+    .disclaimer h3{font-size:16px;font-weight:700;color:var(--dark);margin-bottom:12px}
+    .disclaimer a{color:var(--red)}
+
     /* HERO */
     .hero{position:relative;height:420px;overflow:hidden}
     .hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;display:block;transition:opacity .5s}
@@ -124,6 +136,8 @@
       .sec{padding:34px 20px}
       .gallery-grid{grid-template-columns:1fr 1fr;grid-template-rows:160px 160px 160px}
       .gallery-grid .g-main{grid-column:1/3;grid-row:1/2}
+      .nav-tabs{padding:0 16px;top:49px}
+      .nav-tab{padding:12px 14px;font-size:12px}
       .ski-banner{padding:26px 20px}
       .ski-text h2{font-size:20px}
     }
@@ -145,6 +159,18 @@
   </div>
 </header>
 
+<!-- NAV TABS -->
+<nav class="nav-tabs" id="navTabs">
+  <a class="nav-tab" href="#buchung" data-i18n="nav-booking">📅 Buchung</a>
+  <a class="nav-tab" href="#studio" data-i18n="nav-studio">🏠 Studio</a>
+  <a class="nav-tab" href="#willkommen" data-i18n="nav-welcome">👋 Willkommen</a>
+  <a class="nav-tab" href="#regeln" data-i18n="nav-rules">📋 Regeln</a>
+  <a class="nav-tab" href="#ausstattung" data-i18n="nav-amenities">🛏 Ausstattung</a>
+  <a class="nav-tab" href="#anreise" data-i18n="nav-travel">🚗 Anreise</a>
+  <a class="nav-tab" href="#aktivitaeten" data-i18n="nav-activities">⛷ Aktivitäten</a>
+  <a class="nav-tab" href="#disclaimer" data-i18n="nav-disclaimer">⚖️ Disclaimer</a>
+</nav>
+
 <!-- HERO -->
 <div class="hero">
   <img class="hero-img" src="hero.jpg" alt="Ansicht Täsch">
@@ -155,7 +181,7 @@
 </div>
 
 <!-- GALERIE -->
-<div class="sec" style="padding-bottom:0">
+<div class="sec" id="studio" style="padding-bottom:0">
   <div class="sec-title" data-i18n="gallery-title">Das Studio</div>
   <div class="sec-sub" data-i18n="gallery-sub">Dein Zuhause auf Zeit in den Walliser Alpen</div>
   <div class="gallery-grid">
@@ -178,7 +204,7 @@
 <div class="divider" style="margin-top:40px"></div>
 
 <!-- VERFÜGBARKEIT + BUCHUNG -->
-<div class="sec">
+<div class="sec" id="buchung">
   <div class="sec-title" data-i18n="avail-title">Verfügbarkeit &amp; Buchen</div>
   <div class="sec-sub" data-i18n="avail-sub">Wähle deine Anreise und Abreise direkt im Kalender</div>
   <div class="cal-status" id="calStatus">Kalender wird geladen…</div>
@@ -230,7 +256,7 @@
 <div class="divider"></div>
 
 <!-- WELCOME -->
-<div class="sec">
+<div class="sec" id="willkommen">
   <div class="sec-title" data-i18n="welcome-title">Hallo liebe Gäste!</div>
   <div class="sec-sub" data-i18n="welcome-sub">Wir freuen uns, euch in unserem Studio begrüßen zu dürfen</div>
   <div class="welcome-box" data-i18n-html="welcome-body" id="welcome-body-el"><h2>Herzlich Willkommen im Studio Bokel</h2>
@@ -255,7 +281,7 @@
 <div class="divider"></div>
 
 <!-- REGELN -->
-<div class="sec">
+<div class="sec" id="regeln">
   <div class="sec-title" data-i18n="rules-title">Hausregeln &amp; Check-out</div>
   <div class="sec-sub" data-i18n="rules-title">Hausregeln &amp; Check-out</div>
 
@@ -300,7 +326,7 @@
 <div class="divider"></div>
 
 <!-- AUSSTATTUNG -->
-<div class="sec">
+<div class="sec" id="ausstattung">
   <div class="sec-title" data-i18n="info-title">Ausstattung &amp; Hinweise</div>
   <div class="sec-sub" data-i18n="info-sub">Alles was ihr für euren Aufenthalt wissen müsst</div>
   <div class="cards">
@@ -319,7 +345,7 @@
 <div class="divider"></div>
 
 <!-- ANREISE & LOKALES -->
-<div class="sec">
+<div class="sec" id="anreise">
   <div class="sec-title" data-i18n="travel-title">Anreise &amp; Lokale Tipps</div>
   <div class="sec-sub" data-i18n="travel-sub">So kommt ihr nach Zermatt und findet alles was ihr braucht</div>
   <div class="cards">
@@ -334,7 +360,7 @@
 <div class="divider"></div>
 
 <!-- AKTIVITÄTEN -->
-<div class="sec">
+<div class="sec" id="aktivitaeten">
   <div class="sec-title" data-i18n="act-title">Aktivitäten in der Region</div>
   <div class="sec-sub" data-i18n="act-sub">Zermatt und das Matterhorn-Gebiet — für jeden Geschmack, jede Jahreszeit</div>
 
@@ -444,6 +470,35 @@
 </div>
 
 
+
+<!-- DISCLAIMER -->
+<div class="sec" id="disclaimer">
+  <div class="sec-title" data-i18n="disclaimer-title">Rechtliches & Disclaimer</div>
+  <div class="sec-sub" data-i18n="disclaimer-sub">Wichtige Hinweise</div>
+  <div class="disclaimer" data-i18n-html="disclaimer-body">
+    <h3>Haftungsausschluss</h3>
+    <p>Die Inhalte dieser Website wurden mit größter Sorgfalt erstellt. Für die Richtigkeit, Vollständigkeit und Aktualität der Inhalte übernehmen wir jedoch keine Gewähr. Die Nutzung der Unterkunft erfolgt auf eigene Verantwortung der Gäste.</p>
+    <br>
+    <h3>Betreiber</h3>
+    <p><strong>[Name des Betreibers]</strong><br>
+    [Straße und Hausnummer]<br>
+    [PLZ Ort, Land]<br>
+    E-Mail: <a href="mailto:[email@beispiel.de]">[email@beispiel.de]</a><br>
+    Telefon: [+49 XXX XXXXXXX]</p>
+    <br>
+    <h3>Haftung für Links</h3>
+    <p>Diese Website enthält Links zu externen Websites Dritter, auf deren Inhalte wir keinen Einfluss haben. Für die Inhalte der verlinkten Seiten ist stets der jeweilige Anbieter oder Betreiber verantwortlich.</p>
+    <br>
+    <h3>Datenschutz</h3>
+    <p>Die Nutzung dieser Website ist ohne Angabe personenbezogener Daten möglich. Soweit personenbezogene Daten (z.B. Name, E-Mail) über das Buchungsformular erhoben werden, erfolgt dies auf freiwilliger Basis und ausschließlich zur Bearbeitung der Buchungsanfrage. Eine Weitergabe an Dritte findet nicht statt.</p>
+    <br>
+    <h3>Urheberrecht</h3>
+    <p>Die auf dieser Website veröffentlichten Inhalte und Bilder unterliegen dem Urheberrecht. Jede Vervielfältigung, Bearbeitung oder Verbreitung bedarf der vorherigen schriftlichen Zustimmung des Betreibers.</p>
+    <br>
+    <p style="font-size:12px;color:var(--gray);margin-top:16px"><em>Stand: [Monat Jahr] — Platzhalter-Daten werden noch mit echten Angaben ergänzt.</em></p>
+  </div>
+</div>
+<div class="divider"></div>
 
 <footer>
   <p data-i18n="footer-1">Studio Täsch · Haus Miranda · Täsch, Wallis, Schweiz</p>
@@ -611,6 +666,16 @@ var I18N_SECTIONS = {"act-1": {"de": "<div class=\"act-cat\">Bergbahn</div><h3>G
 "travel-restaurants": {"de": "<h3>Essen &amp; Trinken in Täsch</h3><ul><li><strong>Da Vinci</strong> — Pizzeria &amp; Italienisch (täglich 07:00–23:30)</li><li><strong>Charisma Pizza &amp; Kebäp</strong> — Pizza &amp; Kebäp</li><li><strong>Hotel Restaurant City</strong> — Grill &amp; Regionales (07:30–23:00)</li></ul><p style=\"margin-top:8px;font-size:13px;color:var(--gray)\">Alle Lokale sind im Ort — geöffnet je nach Saison prüfen.</p>", "en": "<h3>Eating &amp; Drinking in Täsch</h3><ul><li><strong>Da Vinci</strong> — Pizzeria &amp; Italian (daily 07:00–23:30)</li><li><strong>Charisma Pizza &amp; Kebap</strong> — Pizza &amp; Kebab</li><li><strong>Hotel Restaurant City</strong> — Grill &amp; Regional (07:30–23:00)</li></ul><p style=\"margin-top:8px;font-size:13px;color:var(--gray)\">All restaurants are in the village — check opening times per season.</p>", "fr": "<h3>Manger &amp; Boire à Täsch</h3><ul><li><strong>Da Vinci</strong> — Pizzeria &amp; Italien (tous les jours 07:00–23:30)</li><li><strong>Charisma Pizza &amp; Kebab</strong> — Pizza &amp; Kebab</li><li><strong>Hotel Restaurant City</strong> — Grill &amp; Régional (07:30–23:00)</li></ul><p style=\"margin-top:8px;font-size:13px;color:var(--gray)\">Tous les restaurants sont dans le village — vérifier les horaires selon la saison.</p>", "es": "<h3>Comer &amp; Beber en Täsch</h3><ul><li><strong>Da Vinci</strong> — Pizzería &amp; Italiano (diario 07:00–23:30)</li><li><strong>Charisma Pizza &amp; Kebab</strong> — Pizza &amp; Kebab</li><li><strong>Hotel Restaurant City</strong> — Grill &amp; Regional (07:30–23:00)</li></ul><p style=\"margin-top:8px;font-size:13px;color:var(--gray)\">Todos los locales están en el pueblo — comprobar horarios según temporada.</p>", "tlh": "<h3>je' Täsch</h3><ul><li>Da Vinci — pizza</li><li>Charisma — pizza, kebap</li><li>Hotel City — grill</li></ul>"}};
 var TRANSLATIONS = {
   de: {
+    "nav-booking": "📅 Buchung",
+    "nav-studio": "🏠 Studio",
+    "nav-welcome": "👋 Willkommen",
+    "nav-rules": "📋 Regeln",
+    "nav-amenities": "🛏 Ausstattung",
+    "nav-travel": "🚗 Anreise",
+    "nav-activities": "⛷ Aktivitäten",
+    "nav-disclaimer": "⚖️ Rechtliches",
+    "disclaimer-title": "Rechtliches & Disclaimer",
+    "disclaimer-sub": "Wichtige Hinweise",
     "nav-sub": "🏔 Wallis, Schweiz · Familie Bokel",
     "hero-title": "Willkommen in Täsch",
     "hero-sub": "Direkt vor den Toren Zermatts — Blick auf das kleine Matterhorn",
@@ -640,6 +705,16 @@ var TRANSLATIONS = {
     "footer-2": "Herzliche Grüße — Familie Bokel · Viel Spaß beim Wandern und Skifahren! 🏔"
   },
   en: {
+    "nav-booking": "📅 Booking",
+    "nav-studio": "🏠 Studio",
+    "nav-welcome": "👋 Welcome",
+    "nav-rules": "📋 Rules",
+    "nav-amenities": "🛏 Amenities",
+    "nav-travel": "🚗 Getting Here",
+    "nav-activities": "⛷ Activities",
+    "nav-disclaimer": "⚖️ Legal",
+    "disclaimer-title": "Legal & Disclaimer",
+    "disclaimer-sub": "Important notices",
     "nav-sub": "🏔 Valais, Switzerland · Bokel Family",
     "hero-title": "Welcome to Täsch",
     "hero-sub": "Right at the gateway to Zermatt — views of the Little Matterhorn",
@@ -669,6 +744,16 @@ var TRANSLATIONS = {
     "footer-2": "Kind regards — Bokel Family · Enjoy your hikes and ski trips! 🏔"
   },
   fr: {
+    "nav-booking": "📅 Réservation",
+    "nav-studio": "🏠 Studio",
+    "nav-welcome": "👋 Bienvenue",
+    "nav-rules": "📋 Règles",
+    "nav-amenities": "🛏 Équipements",
+    "nav-travel": "🚗 Accès",
+    "nav-activities": "⛷ Activités",
+    "nav-disclaimer": "⚖️ Mentions légales",
+    "disclaimer-title": "Mentions légales & Disclaimer",
+    "disclaimer-sub": "Informations importantes",
     "nav-sub": "🏔 Valais, Suisse · Famille Bokel",
     "hero-title": "Bienvenue à Täsch",
     "hero-sub": "Aux portes de Zermatt — vue sur le Petit Cervin",
@@ -698,6 +783,16 @@ var TRANSLATIONS = {
     "footer-2": "Cordialement — Famille Bokel · Profitez bien de votre séjour ! 🏔"
   },
   tlh: {
+    "nav-booking": "📅 HIq",
+    "nav-studio": "🏠 yuQHom",
+    "nav-welcome": "👋 nuqneH",
+    "nav-rules": "📋 Sugh",
+    "nav-amenities": "🛏 pat",
+    "nav-travel": "🚗 yIghoS",
+    "nav-activities": "⛷ Qapla'",
+    "nav-disclaimer": "⚖️ chut",
+    "disclaimer-title": "chut & Disclaimer",
+    "disclaimer-sub": "De'mey",
     "nav-sub": "🏔 tlhIngan Alp · boQel tuq",
     "hero-title": "nuqneH, taScH!",
     "hero-sub": "zermatt Dung — Hurgh mathorn HurDagh",
@@ -727,6 +822,16 @@ var TRANSLATIONS = {
     "footer-2": "Qapla'! boQel tuq — yIQaH yIghoS! 🏔"
   },
   es: {
+    "nav-booking": "📅 Reserva",
+    "nav-studio": "🏠 Estudio",
+    "nav-welcome": "👋 Bienvenida",
+    "nav-rules": "📋 Normas",
+    "nav-amenities": "🛏 Instalaciones",
+    "nav-travel": "🚗 Cómo llegar",
+    "nav-activities": "⛷ Actividades",
+    "nav-disclaimer": "⚖️ Legal",
+    "disclaimer-title": "Legal & Aviso legal",
+    "disclaimer-sub": "Avisos importantes",
     "nav-sub": "🏔 Valais, Suiza · Familia Bokel",
     "hero-title": "Bienvenidos a Täsch",
     "hero-sub": "A las puertas de Zermatt — vistas al Pequeño Matterhorn",
@@ -796,6 +901,34 @@ document.addEventListener('DOMContentLoaded', function() {
     btn.classList.toggle('active', btn.getAttribute('onclick') === "setLang('" + currentLang + "')");
   });
 });
+
+// Nav tabs: smooth scroll + active highlight
+(function(){
+  var tabs=document.querySelectorAll('.nav-tab');
+  tabs.forEach(function(tab){
+    tab.addEventListener('click',function(e){
+      e.preventDefault();
+      var target=document.querySelector(this.getAttribute('href'));
+      if(target){
+        var offset=120;
+        var top=target.getBoundingClientRect().top+window.pageYOffset-offset;
+        window.scrollTo({top:top,behavior:'smooth'});
+      }
+    });
+  });
+  function updateActive(){
+    var scrollPos=window.scrollY+140;
+    var active=null;
+    tabs.forEach(function(tab){
+      var sec=document.querySelector(tab.getAttribute('href'));
+      if(sec&&sec.offsetTop<=scrollPos)active=tab;
+    });
+    tabs.forEach(function(t){t.classList.remove('active')});
+    if(active)active.classList.add('active');
+  }
+  window.addEventListener('scroll',updateActive);
+  updateActive();
+})();
 
 window.revealContact2=function(){
   var el=document.getElementById('contactReveal2');
